@@ -15,17 +15,26 @@
         <span class="font-weight-light">scope</span>
       </v-toolbar-title>
       <v-spacer></v-spacer>
-      <v-btn icon>
-        <v-icon>mdi-magnify</v-icon>
+      <v-btn
+              color="#6200EE"
+              class="white--text mr-2"
+              outline
+              href="https://github.com/vuetifyjs/vuetify/releases/latest"
+              target="_blank"
+
+      >
+        <span class="mr-2">I'm feeling Lucky</span>
       </v-btn>
 
-      <v-btn
-        text
-        href="https://github.com/vuetifyjs/vuetify/releases/latest"
-        target="_blank"
-      >
-        <span class="mr-2">Latest Release</span>
+      <v-btn icon>
+        <v-icon>mdi-account</v-icon>
       </v-btn>
+
+      <v-btn icon>
+        <v-icon>mdi-menu</v-icon>
+      </v-btn>
+
+
     </v-app-bar>
 
     <v-content>
