@@ -21,7 +21,7 @@
               outline
               href="https://github.com/vuetifyjs/vuetify/releases/latest"
               target="_blank"
-
+              to="/about"
       >
         <span class="mr-2">I'm feeling Lucky</span>
       </v-btn>
@@ -38,18 +38,18 @@
     </v-app-bar>
 
     <v-content>
-      <HelloWorld />
+      <Home/>
     </v-content>
   </v-app>
 </template>
 
 <script>
-import HelloWorld from "./components/HelloWorld";
+import Home from "./views/Home";
 
 export default {
   name: "App",
   components: {
-    HelloWorld
+    Home
   },
   data: () => ({
     //
