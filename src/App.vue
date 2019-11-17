@@ -14,15 +14,22 @@
         <span>Kaleido</span>
         <span class="font-weight-light">scope</span>
       </v-toolbar-title>
+
       <v-spacer></v-spacer>
-      <v-btn
-              color="#6200EE"
-              class="white--text mr-2"
-              outline
-              to="/about"
-      >
-        <span class="">Login</span>
-      </v-btn>
+
+      <router-link to="/create">
+        <v-btn
+                color="#6200EE"
+                class="white--text mr-2"
+                outline
+                to="/create"
+        >
+          <span class="">Create Palette</span>
+        </v-btn>
+      </router-link>
+
+
+
 
       <v-btn icon>
         <v-icon>mdi-account</v-icon>
@@ -36,18 +43,18 @@
     </v-app-bar>
 
     <v-content>
-      <Home/>
+      <router-view></router-view>
     </v-content>
   </v-app>
 </template>
 
 <script>
-import Home from "./views/Home";
+//import Home from "./views/Home";
 
 export default {
   name: "App",
   components: {
-    Home
+
   },
   data: () => ({
     //
