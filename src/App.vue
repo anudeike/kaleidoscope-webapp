@@ -19,11 +19,9 @@
               color="#6200EE"
               class="white--text mr-2"
               outline
-              href="https://github.com/vuetifyjs/vuetify/releases/latest"
-              target="_blank"
               to="/about"
       >
-        <span class="mr-2">I'm feeling Lucky</span>
+        <span class="">Login</span>
       </v-btn>
 
       <v-btn icon>
