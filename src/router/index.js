@@ -3,6 +3,7 @@ import VueRouter from "vue-router";
 import Home from "../views/Home.vue";
 import About from "../views/About.vue";
 import createPalettePage from "../views/createPalettePage";
+import auth from "../views/authPage";
 
 Vue.use(VueRouter);
 
@@ -24,7 +25,13 @@ const routes = [
     path: '/create',
     name: "createPalettePage",
     component: createPalettePage
+  },
+  {
+    path: "/auth",
+    name: "auth",
+    component: auth
   }
+
 
 ];
 

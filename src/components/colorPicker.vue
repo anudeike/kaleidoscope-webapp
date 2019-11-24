@@ -19,39 +19,44 @@
                 </v-layout>
             </v-flex>
             <v-flex>
-                <v-col>
-                    <v-card flat class="mx-auto">
-                        <v-card-text>
-                            <div> Word of the Day</div>
-                            <p class="display-1 text--primary">
-                                be•nev•o•lent
-                            </p>
-                            <p>adjective</p>
-                            <div class="text--primary">
-                                well meaning and kindly.<br>
-                                "a benevolent smile"
-                            </div>
-                        </v-card-text>
-                    </v-card>
-                </v-col>
-                <v-col>
-                    <v-card flat class="mx-auto">
-                        <v-card-text>
-                            <div> Word of the Day</div>
-                            <p class="display-1 text--primary">
-                                be•nev•o•lent
-                            </p>
-                            <p>adjective</p>
-                            <div class="text--primary">
-                                well meaning and kindly.<br>
-                                "a benevolent smile"
-                            </div>
-                        </v-card-text>
-                    </v-card>
-                </v-col>
+                <v-card>
+                    <v-card-text>
+                        <v-card flat tile class="mx-auto" height="30vh" v-bind:color="showColor">
+                            <!--<v-card-text>-->
+                                <!--<v-flex class="d-flex justify-center">-->
+                                    <!--<span class="display-1 font-weight-light">{{ showColor }}</span>-->
+                                <!--</v-flex>-->
+                            <!--</v-card-text>-->
+                        </v-card>
+
+                        <v-card flat tile class="mx-auto" height="15vh" color="red lighten-2">
+                            <v-card-text>
+                                <v-flex class="d-flex justify-center">
+                                    second color
+                                </v-flex>
+                            </v-card-text>
+                        </v-card>
+
+                        <v-card flat tile class="mx-auto" height="10vh" color="orange lighten-2">
+                            <v-card-text>
+                                <v-flex class="d-flex justify-center">
+                                    third color
+                                </v-flex>
+                            </v-card-text>
+                        </v-card>
+
+                        <v-card flat tile class="mx-auto" height="10vh" color="green">
+                            <v-card-text>
+                                <v-flex class="d-flex justify-center">
+                                    third color
+                                </v-flex>
+                            </v-card-text>
+                        </v-card>
+                    </v-card-text>
+                </v-card>
+
             </v-flex>
         </v-layout>
-
     </v-container>
 </template>
 
@@ -71,6 +76,22 @@
         },
         computed: {
             color: {
+                get () {
+                    return this[this.type]
+                },
+                set(v){
+                    this[this.type] = v
+                },
+            },
+            color2: {
+                get () {
+                    return this[this.type]
+                },
+                set(v){
+                    this[this.type] = v
+                },
+            },
+            color3: {
                 get () {
                     return this[this.type]
                 },
