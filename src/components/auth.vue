@@ -1,33 +1,53 @@
 <template>
-    <v-card
-            class="mx-auto"
-            max-width="344"
-    >
-        <v-card-text>
-            <div>Word of the Day</div>
-            <p class="display-1 text--primary">
-                be•nev•o•lent
-            </p>
-            <p>adjective</p>
-            <div class="text--primary">
-                well meaning and kindly.<br>
-                "a benevolent smile"
-            </div>
-        </v-card-text>
-        <v-card-actions>
-            <v-btn
-                    text
-                    color="deep-purple accent-4"
-            >
-                Learn More
-            </v-btn>
-        </v-card-actions>
+    <v-card class="mx-auto">
+        <v-card-title>Sign Up for Kaleidoscope</v-card-title>
+        <!-- The Login Form-->
+        <v-form v-model="valid">
+            <v-container text-center>
+                <v-row>
+                    <v-col cols="12" md="4">
+                        <v-text-field
+                                v-model="email"
+                                :rules="namesRules"
+                                :counter="10"
+                                label="Email"
+                        ></v-text-field>
+                    </v-col>
+
+                    <v-col cols="12" md="4">
+                        <v-text-field
+                                v-model="username"
+                                :rules="namesRules"
+                                :counter="10"
+                                label="Enter a unique username"
+                        ></v-text-field>
+                    </v-col>
+
+                    <v-col cols="12" md="4">
+                        <v-text-field
+                                v-model="password"
+                                :rules="namesRules"
+                                :counter="10"
+                                label="Enter a password"
+                        ></v-text-field>
+                    </v-col>
+
+                </v-row>
+            </v-container>
+        </v-form>
     </v-card>
 </template>
 
 <script>
     export default {
-        name: "auth"
+        name: "auth",
+        data () {
+            return {
+                email: "",
+                username: "",
+                password: ""
+            }
+        }
     }
 </script>
 
