@@ -84,7 +84,7 @@
                                     color="success"
                                     class=""
                                     block
-                                    @click="submit">
+                                    @click="login">
 
                                 Submit
                             </v-btn>
@@ -104,6 +104,8 @@
 </template>
 
 <script>
+    import firebase from 'firebase';
+
     export default {
         name: "auth",
         data () {
@@ -128,7 +130,42 @@
         },
         methods: {
             signUp: function () {
-                alert(this.username + " " + this.email + " " + this.password);
+                let self = this;
+                //add user in firebase
+                firebase.auth().createUserWithEmailAndPassword(this.email, this.password).then((authUser) => {
+                    alert("Account has been created. " + authUser)
+
+                    // create the username and add it to the profile
+                    authUser.user.updateProfile({
+                        displayName: self.username,
+                    }).then(() => {
+                        // profile updated successfully
+                        alert("updating was succesful")
+                    }, (err) => {
+                        // error happened
+                        alert("error happened trying to insert username: " + err.message)
+                    })
+                }, (err) => {
+                    alert("error: " + err.message)
+
+                });
+
+                // add the username
+                // firebase.auth().onAuthStateChanged((user) => {
+                //     if (user) {
+                //         //updates the user attributes:
+                //         user.updateProfile({
+                //             displayName: self.username,
+                //         }).then(() => {
+                //             // profile updated successfulling
+                //             alert("updating was succesful")
+                //         }, (err) => {
+                //             // error happened
+                //             alert("error happened trying to insert username: " + err.message)
+                //         })
+                //     }
+                // })
+                //alert(this.username + " " + this.email + " " + this.password);
             },
             login: function () {
                 // log into firebase
