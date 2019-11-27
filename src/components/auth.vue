@@ -2,10 +2,11 @@
     <v-card class="mx-auto">
         <v-card-title primary-title class="justify-center" v-if="isSignUp">Sign Up for Kaleidoscope</v-card-title>
         <v-card-title primary-title class="justify-center" v-else>Log Into Kaleidoscope</v-card-title>
-        <!-- The Sign Up Form-->
+
 
         <v-form v-model="valid">
             <transition name="fade" mode="out-in">
+                <!-- The Sign Up Form -->
                 <v-container key="1" text-center v-if="isSignUp">
                     <v-row>
                         <v-col cols="12" md="4">
@@ -55,10 +56,9 @@
                     </v-row>
                 </v-container>
 
-                <!--Login Form-->
+                <!-- Login Form -->
                 <v-container key="2" text-center v-else>
                     <v-row>
-
                         <v-col cols="12" md="6">
                             <v-text-field
                                     v-model="username"
@@ -128,8 +128,7 @@
         },
         methods: {
             signUp: function () {
-                this.submitted = true
-                //sign into firebase
+                alert(this.username + " " + this.email + " " + this.password);
             },
             login: function () {
                 // log into firebase
