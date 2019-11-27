@@ -1,11 +1,15 @@
 <template>
     <v-container fill-height grid-list-md text-xs-center>
         <v-layout class="pt-6" row wrap align-center>
-            <v-flex></v-flex>
+            <v-flex>
+
+            </v-flex>
             <v-flex>
                 <auth></auth>
             </v-flex>
-            <v-flex></v-flex>
+            <v-flex>
+
+            </v-flex>
         </v-layout>
     </v-container>
 </template>

@@ -21,7 +21,7 @@
         <v-btn
                 color="#6200EE"
                 class="white--text mr-2"
-                outline
+                outlined
                 to="/create"
         >
           <span class="">Create Palette</span>
