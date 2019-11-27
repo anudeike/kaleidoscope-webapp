@@ -61,10 +61,10 @@
                     <v-row>
                         <v-col cols="12" md="6">
                             <v-text-field
-                                    v-model="username"
+                                    v-model="email"
                                     :counter="15"
-                                    :rules="usernameRules"
-                                    label="Enter a unique username"
+                                    :rules="emailRules"
+                                    label="Enter your email"
                             ></v-text-field>
                         </v-col>
 
@@ -149,26 +149,17 @@
                     alert("error: " + err.message)
 
                 });
-
-                // add the username
-                // firebase.auth().onAuthStateChanged((user) => {
-                //     if (user) {
-                //         //updates the user attributes:
-                //         user.updateProfile({
-                //             displayName: self.username,
-                //         }).then(() => {
-                //             // profile updated successfulling
-                //             alert("updating was succesful")
-                //         }, (err) => {
-                //             // error happened
-                //             alert("error happened trying to insert username: " + err.message)
-                //         })
-                //     }
-                // })
-                //alert(this.username + " " + this.email + " " + this.password);
             },
             login: function () {
                 // log into firebase
+
+                //set a loading variable to enable loading
+                firebase.auth().signInWithEmailAndPassword(this.email, this.password).then((authUser) => {
+                    alert("Nice, " + authUser.user.displayName + "is authenticated");
+                }, (err) => {
+                    alert("Error: " + err.message)
+                })
+
             }
         },
 
