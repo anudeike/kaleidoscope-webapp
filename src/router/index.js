@@ -28,7 +28,10 @@ const routes = [
   {
     path: '/create',
     name: "createPalettePage",
-    component: createPalettePage
+    component: createPalettePage,
+    meta: {
+      requiresAuth: true
+    }
   },
   {
     path: "/auth",

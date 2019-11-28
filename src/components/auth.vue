@@ -140,6 +140,9 @@
                     }).then(() => {
                         // profile updated successfully
                         alert("updating was succesful")
+
+                        // go to the home route
+                        this.$router.push('home');
                     }, (err) => {
                         // error happened
                         alert("error happened trying to insert username: " + err.message)
@@ -154,7 +157,10 @@
 
                 //set a loading variable to enable loading
                 firebase.auth().signInWithEmailAndPassword(this.email, this.password).then((authUser) => {
-                    alert("Nice, " + authUser.user.displayName + "is authenticated");
+                    alert("Nice, " + authUser.user.displayName + " is authenticated");
+
+                    //go to home route
+                    this.$router.push('home');
                 }, (err) => {
                     alert("Error: " + err.message)
                 })

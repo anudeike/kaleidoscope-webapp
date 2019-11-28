@@ -19,7 +19,7 @@
 
       <router-link to="/create">
         <v-btn
-                color="#6200EE"
+                color="purple"
                 class="white--text mr-2"
                 outlined
                 to="/create"
@@ -28,12 +28,11 @@
         </v-btn>
       </router-link>
 
-
-
-
-      <v-btn icon>
-        <v-icon>mdi-account</v-icon>
-      </v-btn>
+      <router-link to="/auth">
+        <v-btn>
+          <v-icon>mdi-account</v-icon>
+        </v-btn>
+      </router-link>
 
       <v-btn icon>
         <v-icon>mdi-menu</v-icon>

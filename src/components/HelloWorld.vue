@@ -5,6 +5,7 @@
 
             </v-flex>
             <v-flex class="text-center">
+                <span><p class="display-1 font-weight-light white--text shadow"> Hello, {{ user }} </p></span>
                 <span><p class="display-4 white--text shadow"> Kaleidoscope </p></span>
                 <v-text-field
                         label="enter a term"
@@ -30,7 +31,8 @@ export default {
   data() {
       return {
           myData: "home page",
-          searchTerm: ""
+          searchTerm: "",
+          user: "New User"
       }
   }
 };
