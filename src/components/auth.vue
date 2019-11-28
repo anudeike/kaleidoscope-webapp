@@ -57,12 +57,11 @@
                 </v-container>
 
                 <!-- Login Form -->
-                <v-container key="2" text-center v-else>
+                <v-container key="2" text-center v-else >
                     <v-row>
                         <v-col cols="12" md="6">
                             <v-text-field
                                     v-model="email"
-                                    :counter="15"
                                     :rules="emailRules"
                                     label="Enter your email"
                             ></v-text-field>
