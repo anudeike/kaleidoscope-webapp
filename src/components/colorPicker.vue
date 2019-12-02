@@ -1,7 +1,7 @@
 <template>
-    <v-container fill-height grid-list-md text-xs-center>
+    <v-container fill-height fluid grid-list-md text-xs-center>
         <v-layout class="pt-6" row wrap align-center>
-            <v-flex>
+            <v-flex md4 xs12 shrink class="mx-auto">
                 <v-layout column>
                     <v-flex class="d-flex justify-center">
                         <v-color-picker
@@ -18,7 +18,7 @@
                     </v-flex>
                 </v-layout>
             </v-flex>
-            <v-flex>
+            <v-flex md7 xs12>
                 <v-card>
                     <v-card-text>
                         <v-card
@@ -34,6 +34,13 @@
                     </v-card-text>
                 </v-card>
 
+            </v-flex>
+            <v-flex xs12>
+                <v-card flat>
+                    <v-card-text>
+                        <v-btn color="primary" block large> Continue </v-btn>
+                    </v-card-text>
+                </v-card>
             </v-flex>
         </v-layout>
     </v-container>
@@ -100,7 +107,8 @@
             changeIndex: function (event, index) {
                 //alert("fired " + index)
                 this.currIndex = index
-            }
+            },
+
         }
     }
 </script>
