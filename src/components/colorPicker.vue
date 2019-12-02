@@ -38,7 +38,7 @@
             <v-flex xs12>
                 <v-card flat>
                     <v-card-text>
-                        <v-btn color="primary" block large> Continue </v-btn>
+                        <v-btn color="primary" block large @click="savePalette"> Continue </v-btn>
                     </v-card-text>
                 </v-card>
             </v-flex>
@@ -79,6 +79,9 @@
                 ]
             }
         },
+        mounted () {
+            this.paletteSwatches = this.$store.state.createdPalette.swatches
+        },
         computed: {
             color: {
                 get () {
@@ -108,7 +111,10 @@
                 //alert("fired " + index)
                 this.currIndex = index
             },
-
+            savePalette: function() {
+                // save the palette to the state
+                this.$store.commit('changeSwatches', this.paletteSwatches)
+            }
         }
     }
 </script>
