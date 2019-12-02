@@ -21,36 +21,15 @@
             <v-flex>
                 <v-card>
                     <v-card-text>
-                        <v-card flat tile class="mx-auto" height="30vh" v-bind:color="showColor">
-                            <!--<v-card-text>-->
-                                <!--<v-flex class="d-flex justify-center">-->
-                                    <!--<span class="display-1 font-weight-light">{{ showColor }}</span>-->
-                                <!--</v-flex>-->
-                            <!--</v-card-text>-->
-                        </v-card>
-
-                        <v-card flat tile class="mx-auto" height="15vh" color="red lighten-2">
-                            <v-card-text>
-                                <v-flex class="d-flex justify-center">
-                                    second color
-                                </v-flex>
-                            </v-card-text>
-                        </v-card>
-
-                        <v-card flat tile class="mx-auto" height="10vh" color="orange lighten-2">
-                            <v-card-text>
-                                <v-flex class="d-flex justify-center">
-                                    third color
-                                </v-flex>
-                            </v-card-text>
-                        </v-card>
-
-                        <v-card flat tile class="mx-auto" height="10vh" color="green">
-                            <v-card-text>
-                                <v-flex class="d-flex justify-center">
-                                    third color
-                                </v-flex>
-                            </v-card-text>
+                        <v-card
+                                flat
+                                tile
+                                class="mx-auto my-2"
+                                v-for="p in paletteSwatches"
+                                v-bind:key="p.key"
+                                :height="p.height"
+                                :color="p.color"
+                                @click="changeIndex($event, p.key)">
                         </v-card>
                     </v-card-text>
                 </v-card>
@@ -65,37 +44,46 @@
         name: "colorPicker",
         data (){
             return {
-                types: ['hex', 'hexa', 'rgba', 'hsla', 'hsva'],
+                types: ['hex'],
                 type: 'hex',
                 hex: '#FF00FF',
-                hexa: '#FF00FFFF',
-                rgba: { r: 255, g: 0, b: 255, a: 1 },
-                hsla: { h: 300, s: 1, l: 0.5, a: 1 },
-                hsva: { h: 300, s: 1, v: 1, a: 1 }
+                currIndex: 0,
+                paletteSwatches: [
+                    {
+                        key: 0,
+                        color: "#FF00FF",
+                        height: "30vh"
+                    },
+                    {
+                        key: 1,
+                        color: "#A8A8A8",
+                        height: "15vh"
+                    },
+                    {
+                        key: 2,
+                        color: "#575757",
+                        height: "10vh"
+                    },
+                    {
+                        key: 3,
+                        color: "#141414",
+                        height: "10vh"
+                    }
+                ]
             }
         },
         computed: {
             color: {
                 get () {
+                    // returns t
+                    //alert(this[this.type]);
                     return this[this.type]
                 },
                 set(v){
-                    this[this.type] = v
-                },
-            },
-            color2: {
-                get () {
-                    return this[this.type]
-                },
-                set(v){
-                    this[this.type] = v
-                },
-            },
-            color3: {
-                get () {
-                    return this[this.type]
-                },
-                set(v){
+                    // set the value of color in the paletteSwatch
+                    this.paletteSwatches[this.currIndex].color = v
+
+                    // sets using the info from the colorpicker
                     this[this.type] = v
                 },
             },
@@ -104,10 +92,14 @@
                     return this.color
                 }
 
-                return JSON.stringify(Object.keys(this.color).reduce((color, key) => {
-                    color[key] = Number(this.color[key].toFixed(2))
-                    return color
-                }, {}), null, 2)
+                return this.color
+            },
+
+        },
+        methods: {
+            changeIndex: function (event, index) {
+                //alert("fired " + index)
+                this.currIndex = index
             }
         }
     }
