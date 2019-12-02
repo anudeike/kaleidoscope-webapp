@@ -4,6 +4,7 @@ import router from "./router";
 import vuetify from "./plugins/vuetify";
 import 'material-design-icons-iconfont/dist/material-design-icons.css';
 import firebase from 'firebase';
+import { store } from "./store/store.js";
 
 Vue.config.productionTip = false;
 
@@ -22,6 +23,7 @@ const firebaseConfig = {
 firebase.initializeApp(firebaseConfig);
 
 new Vue({
+  store: store,
   router,
   vuetify,
   render: h => h(App)

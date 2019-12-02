@@ -5,7 +5,7 @@
 
             </v-flex>
             <v-flex class="text-center">
-                <span><p class="display-1 font-weight-light white--text shadow"> Hello, {{ user }} </p></span>
+                <span><p class="display-1 font-weight-light white--text shadow"> Hello, {{ getUserFromState }} </p></span>
                 <span><p class="display-4 white--text shadow"> Kaleidoscope </p></span>
                 <v-text-field
                         label="enter a term"
@@ -32,7 +32,18 @@ export default {
       return {
           myData: "home page",
           searchTerm: "",
-          user: "New User"
+      }
+  },
+  computed: {
+      // get the user from the store
+      getUserFromState() {
+          // if there is no user then return newUser
+          if (this.$store.state.user === "") {
+              return "New User!"
+          }
+
+          // else if there is a user
+          return this.$store.state.user;
       }
   }
 };
