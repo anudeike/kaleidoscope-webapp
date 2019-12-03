@@ -132,7 +132,7 @@
                 let self = this;
                 //add user in firebase
                 firebase.auth().createUserWithEmailAndPassword(this.email, this.password).then((authUser) => {
-                    alert("Account has been created. " + authUser)
+                    //alert("Account has been created. " + authUser)
 
                     // set the current user in the store
                     this.$store.commit('setUser'); // commit("name of the function")
@@ -142,7 +142,7 @@
                         displayName: self.username,
                     }).then(() => {
                         // profile updated successfully
-                        alert("updating was succesful")
+                        //alert("updating was succesful")
 
                         // go to the home route
                         this.$router.push('home');
@@ -159,8 +159,8 @@
                 // log into firebase
 
                 //set a loading variable to enable loading
-                firebase.auth().signInWithEmailAndPassword(this.email, this.password).then((authUser) => {
-                    alert("Nice, " + authUser.user.displayName + " is authenticated");
+                firebase.auth().signInWithEmailAndPassword(this.email, this.password).then(() => {
+                    //alert("Nice, " + authUser.user.displayName + " is authenticated");
 
                     // set the current user in the store
                     this.$store.commit('setUser'); // commit("name of the function")

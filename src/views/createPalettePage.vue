@@ -52,7 +52,7 @@
         </v-stepper-step>
 
         <v-stepper-content step="3">
-            <color-picker></color-picker>
+            <color-picker @clicked="e6 = 4"></color-picker>
         </v-stepper-content>
     </v-stepper>
 

@@ -114,6 +114,9 @@
             savePalette: function() {
                 // save the palette to the state
                 this.$store.commit('changeSwatches', this.paletteSwatches)
+
+                // emit an event to tell the parent it is time to continue
+                this.$emit('clicked');
             }
         }
     }
