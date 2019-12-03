@@ -159,11 +159,11 @@
                 // log into firebase
 
                 //set a loading variable to enable loading
-                firebase.auth().signInWithEmailAndPassword(this.email, this.password).then(() => {
+                firebase.auth().signInWithEmailAndPassword(this.email, this.password).then((authUser) => {
                     //alert("Nice, " + authUser.user.displayName + " is authenticated");
 
                     // set the current user in the store
-                    this.$store.commit('setUser'); // commit("name of the function")
+                    this.$store.commit('setNewUser', authUser.user.displayName); // commit("name of the function")
                     //go to home route
                     this.$router.push('home');
                 }, (err) => {

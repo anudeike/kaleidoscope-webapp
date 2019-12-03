@@ -1,6 +1,6 @@
 import Vue from 'vue';
 import Vuex from 'vuex';
-import firebase from 'firebase'
+import {fb} from "../firebase";
 
 Vue.use(Vuex);
 
@@ -41,8 +41,7 @@ export const store = new Vuex.Store({
     mutations: {
         setUser: (state) => {
             // this sets the state
-            state.user = state.author = firebase.auth().currentUser.displayName;
-
+            state.user = fb.auth().currentUser.displayName;
         },
         changeSwatches: (state, swatches) => {
             // set the swatches in the store
@@ -53,6 +52,14 @@ export const store = new Vuex.Store({
             state.createdPalette.title = paletteInfo.title;
             state.createdPalette.description = paletteInfo.description;
             state.createdPalette.tags = chips;
+            state.createdPalette.author = paletteInfo.author; // set the auithor here instead
+        },
+        setNewUser: (state, newUser) => {
+            // set a new user
+            state.user = newUser
+
+            // set the author
+            state.createdPalette.author = newUser;
         },
     },
     getters: {

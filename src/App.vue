@@ -52,14 +52,25 @@
 
 <script>
 //import Home from "./views/Home";
+//import firebase from 'firebase';
 
 export default {
+
   name: "App",
   components: {
 
   },
-  data: () => ({
-    //
-  })
+  data () {
+    return {
+      loggedIn: false,
+    }
+  },
+  mounted () {
+    if(this.$store.state.user !== "New User"){
+      this.loggedIn = true
+    }
+
+  }
+
 };
 </script>

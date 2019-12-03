@@ -32,7 +32,7 @@
         <v-stepper-content step="2">
             <v-card>
                 <v-card-text>
-                    <v-textarea label="describe away!" hint="here's a hint: be creative">
+                    <v-textarea label="describe away!" v-model="paletteInfo.description" hint="here's a hint: be creative">
 
                     </v-textarea>
                 </v-card-text>
@@ -116,7 +116,8 @@
                 loading: false,
                 paletteInfo: {
                     title: "",
-                    description: ""
+                    description: "",
+                    author: ""
                 },
                 chips: [''],
                 items: ['nature', 'regal', 'fashion','amber', 'bold', 'energetic', 'bright']
@@ -151,11 +152,17 @@
                     this.loading = false;
                 });
 
+                // route to the next page
+                this.$router.push('home');
+
 
             }
         },
         mounted () {
             this.chips = this.$store.state.createdPalette.tags;
+
+            // get the author
+            this.paletteInfo.author = this.$store.state.createdPalette.author;
         },
         computed: {
             submittable() {
