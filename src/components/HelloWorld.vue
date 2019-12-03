@@ -17,7 +17,7 @@
 
                 </v-text-field>
 
-                <v-btn x-large color="purple darken-3" dark>Search</v-btn>
+                <v-btn x-large color="purple darken-3" dark @click="submit">Search</v-btn>
             </v-flex>
             <v-flex class="text-center placeholder">
 
@@ -33,6 +33,17 @@ export default {
           myData: "home page",
           searchTerm: "",
       }
+  },
+  methods: {
+       submit: function (){
+           // go to the next page
+           this.$router.push({
+               name: 'search',
+               params: {
+                   query: this.searchTerm
+               },
+           })
+       }
   },
   computed: {
       // get the user from the store

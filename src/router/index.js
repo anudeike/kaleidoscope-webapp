@@ -4,6 +4,7 @@ import Home from "../views/Home.vue";
 import About from "../views/About.vue";
 import createPalettePage from "../views/createPalettePage";
 import auth from "../views/authPage";
+import searchResultsPage from "../views/searchResultsPage";
 
 Vue.use(VueRouter);
 
@@ -37,6 +38,11 @@ const routes = [
     path: "/auth",
     name: "auth",
     component: auth
+  },
+  {
+    path: "/search/:query",
+    name: "search",
+    component: searchResultsPage
   }
 
 
