@@ -1,22 +1,18 @@
 import Vue from 'vue';
 import Vuex from 'vuex';
-import firebase from 'firebase';
+import firebase from 'firebase'
 
 Vue.use(Vuex);
 
 // this is where we define the state of our application
 export const store = new Vuex.Store({
     state: {
-        exampleItem1: [
-            {name: "Ike", price: 20},
-            {name: "Jana", price: 25},
-            {name: "Jazz", price: 30},
-            {name: "Cass", price: 35}
-        ],
         user: "New User",
         createdPalette: {
             title: "Example Title",
             description: "i'm mr.description, look at me!",
+            author: "",
+            tags: ["all"],
             swatches: [
                 {
                     key: 0,
@@ -45,11 +41,28 @@ export const store = new Vuex.Store({
     mutations: {
         setUser: (state) => {
             // this sets the state
-            state.user = firebase.auth().currentUser.displayName;
+            state.user = state.author = firebase.auth().currentUser.displayName;
+
         },
         changeSwatches: (state, swatches) => {
             // set the swatches in the store
             state.createdPalette.swatches = swatches
+        },
+        changePaletteInfo: (state, paletteInfo, chips) => {
+            // update the palette information when a new step is progressed too
+            state.createdPalette.title = paletteInfo.title;
+            state.createdPalette.description = paletteInfo.description;
+            state.createdPalette.tags = chips;
+        },
+    },
+    getters: {
+        // helps get the tags from the state
+        getTags: state => {
+            return state.createdPalette.tags
+        },
+
+        getPalette: state => {
+            return state.createdPalette
         }
     }
 

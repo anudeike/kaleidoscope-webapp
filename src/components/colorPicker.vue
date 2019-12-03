@@ -117,7 +117,8 @@
 
                 // emit an event to tell the parent it is time to continue
                 this.$emit('clicked');
-            }
+            },
+
         }
     }
 </script>
