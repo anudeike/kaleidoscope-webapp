@@ -65,7 +65,7 @@
             <v-card>
                 <v-card-text>
                     <v-combobox
-                            v-model="chips"
+                            v-model="paletteInfo.chips"
                             :items="items"
                             chips
                             clearable
@@ -117,10 +117,12 @@
                 paletteInfo: {
                     title: "",
                     description: "",
-                    author: ""
+                    author: "",
+                    chips: ['all']
                 },
                 chips: [''],
-                items: ['nature', 'regal', 'fashion','amber', 'bold', 'energetic', 'bright']
+                items: ['nature', 'regal', 'fashion','amber', 'bold', 'energetic', 'bright'],
+                pal: null
             }
         },
         methods: {
@@ -134,20 +136,26 @@
             },
             saveStep: function(){
                 // save to the store
-                this.$store.commit('changePaletteInfo', this.paletteInfo, this.chips);
+                this.$store.commit('changePaletteInfo', this.paletteInfo);
+
+                // save step
+                // store the state as a variable
+                this.pal = this.$store.state.createdPalette; // for debug purposes
+                //this.pal = pal;
             },
             submit: function() {
                 // save to the store
-                this.$store.commit('changePaletteInfo', this.paletteInfo, this.chips);
+                this.$store.commit('changePaletteInfo', this.paletteInfo);
 
                 // set the loading to true
                 this.loading = true;
 
                 // store the state as a variable
                 var pal = this.$store.state.createdPalette;
+                this.pal = pal;
 
                 // send to firebase
-                this.$http.post("https://kaleidoscope-app-92131.firebaseio.com/palettes.json", pal, { useCredentials: true}).then((data) => {
+                this.$http.post("https://kaleidoscope-app-92131.firebaseio.com/palettes.json", pal).then((data) => {
                     alert(data);
                     this.loading = false;
                 });
@@ -159,8 +167,6 @@
             }
         },
         mounted () {
-            this.chips = this.$store.state.createdPalette.tags;
-
             // get the author
             this.paletteInfo.author = this.$store.state.createdPalette.author;
         },

@@ -3,6 +3,7 @@ import Vuex from 'vuex';
 import {fb} from "../firebase";
 
 Vue.use(Vuex);
+Vue.config.devtools = true;
 
 // this is where we define the state of our application
 export const store = new Vuex.Store({
@@ -47,11 +48,11 @@ export const store = new Vuex.Store({
             // set the swatches in the store
             state.createdPalette.swatches = swatches
         },
-        changePaletteInfo: (state, paletteInfo, chips) => {
+        changePaletteInfo: (state, paletteInfo) => {
             // update the palette information when a new step is progressed too
             state.createdPalette.title = paletteInfo.title;
             state.createdPalette.description = paletteInfo.description;
-            state.createdPalette.tags = chips;
+            state.createdPalette.tags = paletteInfo.chips;
             state.createdPalette.author = paletteInfo.author; // set the auithor here instead
         },
         setNewUser: (state, newUser) => {
