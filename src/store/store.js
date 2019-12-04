@@ -14,6 +14,8 @@ export const store = new Vuex.Store({
             description: "i'm mr.description, look at me!",
             author: "",
             tags: ["all"],
+            score: 0, // this is your total rating score
+            num_ratings: 0, // number of ratings you got
             swatches: [
                 {
                     key: 0,

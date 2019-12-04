@@ -13,14 +13,17 @@
             <v-flex>
                 <v-container fluid fill-height>
                     <v-layout row>
+
                         <v-flex
                                 md2
                                 lg3
-                                sm12
+                                sm6
+                                xs12
                                 class="py-2 px-2"
                                 v-for="palette in targetPalettes"
                                 :key="palette.key">
-                            <result v-bind:palette_info="palette"></result>
+                            <!--on the rated - recalculate the score-->
+                            <result v-bind:palette_info="palette" @rated="calcRating"></result>
                         </v-flex>
                     </v-layout>
                 </v-container>
@@ -64,7 +67,12 @@
                     }
                 }
             })
-
+        },
+        methods: {
+            // // take in the new rating and add it to the score
+            // calcRating: function (rating, newOne) {
+            //
+            // }
         }
 
     }
