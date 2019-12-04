@@ -23,7 +23,7 @@
                                 v-for="palette in targetPalettes"
                                 :key="palette.key">
                             <!--on the rated - recalculate the score-->
-                            <result v-bind:palette_info="palette" @rated="calcRating"></result>
+                            <result v-bind:palette_info="palette"></result>
                         </v-flex>
                     </v-layout>
                 </v-container>

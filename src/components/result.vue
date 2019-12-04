@@ -120,7 +120,7 @@
                 open_dialog: false,
                 currentOpenPalette: null,
                 rating: 3,
-                rates: 0
+                rates: 0,
             }
         },
         methods: {
@@ -133,18 +133,19 @@
             },
             reCalcRating: function () {
                 // reCalculate the rating
-                this.rating
+                this.rates++;
             }
         },
         computed: {
             calcCurrentRating: function () {
-                var totalScore = this.palette_info.score + this.rating;
+                let totalScore = this.p_info.score + this.rating;
+                let totalRatings = this.p_info.score + this.rates;
 
-                if(this.palette_info.num_ratings + this.rates === 0){
+                if(totalRatings === 0){
                     return 0
                 }
 
-                return Math.round(totalScore/(this.palette_info.num_ratings + this.rates));
+                return Math.round(totalScore/(totalRatings + this.rates));
             }
         }
     }
