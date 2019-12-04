@@ -11,14 +11,16 @@
                 </v-card>
             </v-flex>
             <v-flex>
-                <v-container fill-height>
+                <v-container fluid fill-height>
                     <v-layout row>
-                        <v-flex md2 v-for="s in someData" :key="s">
-                            <v-card>
-                                <v-card-text>
-                                    {{ s }} something
-                                </v-card-text>
-                            </v-card>
+                        <v-flex
+                                md2
+                                lg3
+                                sm12
+                                class="py-2 px-2"
+                                v-for="palette in targetPalettes"
+                                :key="palette.key">
+                            <result v-bind:palette_info="palette"></result>
                         </v-flex>
                     </v-layout>
                 </v-container>
@@ -30,9 +32,11 @@
 <script>
     //import result from "../components/result";
 
+    import Result from "../components/result";
     export default {
         name: "searchResultsPage",
         components: {
+            Result
 
         },
         data (){

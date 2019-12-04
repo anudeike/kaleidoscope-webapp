@@ -1,24 +1,33 @@
 <template>
     <v-card>
-        <v-card-title>
-            I'm a title
-        </v-card-title>
-
-        <v-card-subtitle>
-            I'm a subtitle
-        </v-card-subtitle>
-
-        <v-card-actions>
-            <v-btn block color="primary">
-                I'm a button
-            </v-btn>
-        </v-card-actions>
+        <v-card-text>
+            <v-card
+                    max-height="300px"
+                    flat
+                    tile
+                    v-for="p in p_info.swatches"
+                    v-bind:key="p.key"
+                    :color="p.color"
+                    :height="p.height"
+            >
+                {{ p }}
+            </v-card>
+        </v-card-text>
     </v-card>
 </template>
 
 <script>
     export default {
-        name: "result"
+        name: "result",
+        props: {
+            palette_info: Object
+        },
+        data () {
+            return {
+                p_info: this.palette_info
+            }
+
+        }
     }
 </script>
 
