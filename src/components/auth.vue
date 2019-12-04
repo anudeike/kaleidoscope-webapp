@@ -135,14 +135,13 @@
                     //alert("Account has been created. " + authUser)
 
                     // set the current user in the store
-                    this.$store.commit('setUser'); // commit("name of the function")
+                    this.$store.commit('setNewUser', self.username); // commit("name of the function")
 
                     // create the username and add it to the profile
                     authUser.user.updateProfile({
                         displayName: self.username,
                     }).then(() => {
                         // profile updated successfully
-                        //alert("updating was succesful")
 
                         // go to the home route
                         this.$router.push('home');
@@ -164,6 +163,7 @@
 
                     // set the current user in the store
                     this.$store.commit('setNewUser', authUser.user.displayName); // commit("name of the function")
+
                     //go to home route
                     this.$router.push('home');
                 }, (err) => {

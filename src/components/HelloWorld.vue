@@ -27,7 +27,8 @@
 </template>
 
 <script>
-export default {
+
+    export default {
   data() {
       return {
           myData: "home page",
@@ -53,7 +54,7 @@ export default {
               return "New User!"
           }
 
-          // else if there is a user
+          // // else if there is a user
           return this.$store.state.user;
       }
   }

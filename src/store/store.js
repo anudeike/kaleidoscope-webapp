@@ -56,7 +56,7 @@ export const store = new Vuex.Store({
         },
         setNewUser: (state, newUser) => {
             // set a new user
-            state.user = newUser
+            state.user = newUser;
 
             // set the author
             state.createdPalette.author = newUser;
