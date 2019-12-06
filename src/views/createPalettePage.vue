@@ -58,7 +58,7 @@
         <!-- Step 4 -->
         <v-stepper-step editable step="4">
             Choose some tags
-            <small> this helps your palette get noticed! </small>
+            <small> create a tag with your name! </small>
         </v-stepper-step>
 
         <v-stepper-content step="4">
