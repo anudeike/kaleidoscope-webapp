@@ -10,7 +10,12 @@
                     </v-card-text>
                 </v-card>
             </v-flex>
-            <v-flex>
+            <v-flex class="text-center mt-5" v-if="!checkResultsLength">
+                <span class="headline font-weight-light">
+                    Sorry! No results found.
+                </span>
+            </v-flex>
+            <v-flex v-else>
                 <v-container fluid fill-height>
                     <v-layout row>
 
@@ -40,7 +45,6 @@
         name: "searchResultsPage",
         components: {
             Result
-
         },
         data (){
             return {
@@ -68,11 +72,13 @@
                 }
             })
         },
-        methods: {
-            // // take in the new rating and add it to the score
-            // calcRating: function (rating, newOne) {
-            //
-            // }
+        computed: {
+            checkResultsLength: function () {
+                if(this.targetPalettes.length === 0){
+                    return false
+                }
+                return true
+            }
         }
 
     }
