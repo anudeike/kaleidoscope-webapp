@@ -122,7 +122,6 @@
                 },
                 chips: [''],
                 items: ['nature', 'regal', 'fashion','amber', 'bold', 'energetic', 'bright'],
-                pal: null
             }
         },
         methods: {
@@ -144,6 +143,9 @@
                 //this.pal = pal;
             },
             submit: function() {
+                // add the title to the chips
+                this.paletteInfo.chips.push(this.paletteInfo.title);
+
                 // save to the store
                 this.$store.commit('changePaletteInfo', this.paletteInfo);
 
@@ -152,11 +154,11 @@
 
                 // store the state as a variable
                 var pal = this.$store.state.createdPalette;
-                this.pal = pal;
+                //this.pal = pal;
 
                 // send to firebase
-                this.$http.post("https://kaleidoscope-app-92131.firebaseio.com/palettes.json", pal).then((data) => {
-                    alert(data);
+                this.$http.post("https://kaleidoscope-app-92131.firebaseio.com/palettes.json", pal).then(() => {
+                    //alert(data);
                     this.loading = false;
                 });
 

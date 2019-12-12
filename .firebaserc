@@ -1,5 +1,14 @@
 {
   "projects": {
-    "default": "kaleidoscope-app-92131"
+    "default": "app-kaleidoscope"
+  },
+  "targets": {
+    "kaleidoscope-app-92131": {
+      "hosting": {
+        "appl": [
+          "app-kaleidoscope"
+        ]
+      }
+    }
   }
 }

@@ -1,0 +1,33 @@
+// this is the created palette
+
+
+createdPalette: {
+            title: "Example Title",
+            description: "i'm mr.description, look at me!",
+            author: "",
+            tags: ["all"],
+            score: 0, // this is your total rating score
+            num_ratings: 0, // number of ratings you got
+            swatches: [
+                {
+                    key: 0,
+                    color: "#FF00FF",
+                    height: "30vh"
+                },
+                {
+                    key: 1,
+                    color: "#A8A8A8",
+                    height: "15vh"
+                },
+                {
+                    key: 2,
+                    color: "#575757",
+                    height: "10vh"
+                },
+                {
+                    key: 3,
+                    color: "#141414",
+                    height: "10vh"
+                }
+            ]
+        }

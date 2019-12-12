@@ -6,7 +6,9 @@
             </v-flex>
             <v-flex class="text-center">
                 <span><p class="display-1 font-weight-light white--text shadow"> Hello, {{ getUserFromState }} </p></span>
-                <span><p class="display-4 white--text shadow"> Kaleidoscope </p></span>
+                <span>
+                    <p class="display-4 white--text shadow"> Kaleidoscope </p>
+                </span>
                 <v-text-field
                         label="enter a term"
                         color="white"
@@ -65,5 +67,6 @@
     p.shadow {
         text-shadow: 2px 2px 10px rgba(0,0,0,0.4);
     }
+
 
 </style>

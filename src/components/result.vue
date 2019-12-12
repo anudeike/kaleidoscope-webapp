@@ -85,9 +85,31 @@
                                         </v-chip>
                                     </div>
 
+                                    <v-container>
+                                        <v-layout class="justify-center justify-md-space-between" wrap>
+                                            <v-flex class="mx-0" md3 xs12>
+                                                <v-card>
+                                                    <v-card-text>hole</v-card-text>
+                                                </v-card>
+                                            </v-flex>
+                                            <v-flex class="mx-0" md3 xs12>
+                                                <v-card>
+                                                    <v-card-text>hole</v-card-text>
+                                                </v-card>
+                                            </v-flex>
+                                            <v-flex class="mx-0" md3 xs12>
+                                                <v-card>
+                                                    <v-card-text>hole</v-card-text>
+                                                </v-card>
+                                            </v-flex>
+                                        </v-layout>
+                                    </v-container>
+
+
                                     <div class="text-center mt-5">
                                         <span class="display-3"> Rate Me</span>
                                     </div>
+                                    
                                     <div class="text-center mt-5">
                                         <v-rating v-model="rating" x-large></v-rating>
                                     </div>
