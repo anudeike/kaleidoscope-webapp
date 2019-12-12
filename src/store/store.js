@@ -10,6 +10,7 @@ export const store = new Vuex.Store({
     state: {
         user: "New User",
         createdPalette: {
+            UUID: "",
             title: "Example Title",
             description: "i'm mr.description, look at me!",
             author: "",
@@ -56,6 +57,7 @@ export const store = new Vuex.Store({
             state.createdPalette.description = paletteInfo.description;
             state.createdPalette.tags = paletteInfo.chips;
             state.createdPalette.author = paletteInfo.author; // set the auithor here instead
+            state.createdPalette.UUID = paletteInfo.UID; // set the unique ID
         },
         setNewUser: (state, newUser) => {
             // set a new user

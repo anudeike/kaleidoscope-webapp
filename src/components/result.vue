@@ -89,16 +89,19 @@
                                         <v-layout class="justify-center justify-md-space-between" wrap>
                                             <v-flex class="mx-0" md3 xs12>
                                                 <v-card>
+                                                    <v-card-title>css</v-card-title>
                                                     <v-card-text>hole</v-card-text>
                                                 </v-card>
                                             </v-flex>
                                             <v-flex class="mx-0" md3 xs12>
                                                 <v-card>
+                                                    <v-card-title>css</v-card-title>
                                                     <v-card-text>hole</v-card-text>
                                                 </v-card>
                                             </v-flex>
                                             <v-flex class="mx-0" md3 xs12>
                                                 <v-card>
+                                                    <v-card-title>css</v-card-title>
                                                     <v-card-text>hole</v-card-text>
                                                 </v-card>
                                             </v-flex>
