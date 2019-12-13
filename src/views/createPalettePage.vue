@@ -167,6 +167,7 @@
 
                 // add the title to the chips
                 this.paletteInfo.chips.push(this.paletteInfo.title);
+                this.paletteInfo.chips.push(this.paletteInfo.author); // push the author so i can search that way
 
                 // save to the store
                 this.$store.commit('changePaletteInfo', this.paletteInfo);

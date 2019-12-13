@@ -21,6 +21,8 @@
             <v-rating v-model="calcCurrentRating">
 
             </v-rating>
+
+            <span>{{ rates }}</span>
         </v-card-actions>
 
         <!-- dialog box -->
@@ -61,8 +63,7 @@
                         <v-flex>
                             <v-card
                                     flat
-                                    title
-                                    height="65vh">
+                                    title>
                                 <v-card-title>
                                     {{ palette_info.title }}
                                 </v-card-title>
@@ -85,28 +86,6 @@
                                         </v-chip>
                                     </div>
 
-                                    <v-container>
-                                        <v-layout class="justify-center justify-md-space-between" wrap>
-                                            <v-flex class="mx-0" md3 xs12>
-                                                <v-card>
-                                                    <v-card-title>css</v-card-title>
-                                                    <v-card-text>hole</v-card-text>
-                                                </v-card>
-                                            </v-flex>
-                                            <v-flex class="mx-0" md3 xs12>
-                                                <v-card>
-                                                    <v-card-title>css</v-card-title>
-                                                    <v-card-text>hole</v-card-text>
-                                                </v-card>
-                                            </v-flex>
-                                            <v-flex class="mx-0" md3 xs12>
-                                                <v-card>
-                                                    <v-card-title>css</v-card-title>
-                                                    <v-card-text>hole</v-card-text>
-                                                </v-card>
-                                            </v-flex>
-                                        </v-layout>
-                                    </v-container>
 
 
                                     <div class="text-center mt-5">
@@ -119,7 +98,7 @@
                                 </v-card-text>
 
                                 <v-card-actions>
-                                    <v-btn block @click="reCalcRating">
+                                    <v-btn block @click="rates += 1; open_dialog = false;">
                                         Submit Rating!
                                     </v-btn>
                                 </v-card-actions>
@@ -156,7 +135,7 @@
             postRating: function () {
                 //this.$emit('rated', this.rating, 1) // emits event parent - add one to rated and add rating to score
             },
-            reCalcRating: function () {
+            incrementRates: function () {
                 // reCalculate the rating
                 this.rates++;
             }
