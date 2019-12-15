@@ -10,12 +10,15 @@
                     </v-card-text>
                 </v-card>
             </v-flex>
-            <v-flex class="text-center mt-5" v-if="!checkResultsLength">
+            <v-flex v-if="isLoading" class="text-center mt-6">
+                <v-progress-circular indeterminate color="purple" size="64"></v-progress-circular>
+            </v-flex>
+            <v-flex class="text-center mt-5" v-if="!checkResultsLength && !isLoading">
                 <span class="headline font-weight-light">
                     Sorry! No results found.
                 </span>
             </v-flex>
-            <v-flex v-else>
+            <v-flex v-if="!isLoading">
                 <v-container fluid fill-height>
                     <v-layout row>
 
@@ -52,7 +55,8 @@
                 paletteResults: null,
                 keys:[],
                 targetPalettes: [],
-                query: ""
+                query: "",
+                isLoading: true,
             }
         },
         mounted() {
@@ -64,12 +68,17 @@
             }).then((data) => {
                 this.paletteResults = data;
 
+
                 // append the keys - get the targeted palettes
                 for (let key in data){
                     if(data[key].tags.includes(this.query)){
                         this.targetPalettes.push(data[key]);
                     }
                 }
+
+
+
+                this.isLoading = false;
             })
         },
         computed: {
