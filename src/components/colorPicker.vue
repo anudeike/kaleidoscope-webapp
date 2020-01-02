@@ -27,7 +27,7 @@
                                 class="mx-auto my-2"
                                 v-for="p in paletteSwatches"
                                 v-bind:key="p.key"
-                                :height="p.height"
+                                height="50px"
                                 :color="p.color"
                                 @click="changeIndex($event, p.key)">
                         </v-card>
@@ -35,23 +35,25 @@
                 </v-card>
 
             </v-flex>
-            <v-flex xs12>
 
-                <v-card>
-                    <v-card-text>
-                        <v-layout wrap class="text-center">
-                            <v-flex v-for="s in suggestions" v-bind:key="s.index">
-                                <v-card v-bind:color="s">
-                                    <v-card-text>
-                                        {{ s }}
-                                    </v-card-text>
-                                </v-card>
-                            </v-flex>
-                        </v-layout>
-                    </v-card-text>
+            <!-- Suggested Colors-->
+            <!--<v-flex xs12>-->
 
-                </v-card>
-            </v-flex>
+                <!--<v-card>-->
+                    <!--<v-card-text>-->
+                        <!--<v-layout wrap class="text-center">-->
+                            <!--<v-flex v-for="s in suggestions" v-bind:key="s.index">-->
+                                <!--<v-card v-bind:color="s">-->
+                                    <!--<v-card-text>-->
+                                        <!--{{ s }}-->
+                                    <!--</v-card-text>-->
+                                <!--</v-card>-->
+                            <!--</v-flex>-->
+                        <!--</v-layout>-->
+                    <!--</v-card-text>-->
+
+                <!--</v-card>-->
+            <!--</v-flex>-->
             <v-flex xs12>
                 <v-card flat>
                     <v-card-text>
@@ -76,22 +78,30 @@
                     {
                         key: 0,
                         color: "#FF00FF",
-                        height: "30vh"
                     },
                     {
                         key: 1,
                         color: "#A8A8A8",
-                        height: "15vh"
                     },
                     {
                         key: 2,
                         color: "#575757",
-                        height: "10vh"
                     },
                     {
                         key: 3,
-                        color: "#141414",
-                        height: "10vh"
+                        color: "#0076dc",
+                    },
+                    {
+                        key: 4,
+                        color: "#834731",
+                    },
+                    {
+                        key: 5,
+                        color: "#4d9a7f",
+                    },
+                    {
+                        key: 6,
+                        color: "#f8ec4f",
                     }
                 ],
 

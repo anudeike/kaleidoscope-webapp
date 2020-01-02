@@ -37,9 +37,12 @@
         </v-btn>
       </router-link>
 
-      <v-btn icon>
-        <v-icon>mdi-menu</v-icon>
-      </v-btn>
+      <router-link to="/chooseMethod">
+        <v-btn icon>
+          <v-icon>mdi-menu</v-icon>
+        </v-btn>
+      </router-link>
+
 
 
     </v-app-bar>

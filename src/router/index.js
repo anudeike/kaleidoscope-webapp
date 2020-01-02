@@ -5,6 +5,7 @@ import About from "../views/About.vue";
 import createPalettePage from "../views/createPalettePage";
 import auth from "../views/authPage";
 import searchResultsPage from "../views/searchResultsPage";
+import chooseCreateMethod from "../views/chooseCreateMethod";
 
 Vue.use(VueRouter);
 
@@ -43,6 +44,11 @@ const routes = [
     path: "/search/:query",
     name: "search",
     component: searchResultsPage
+  },
+  {
+    path: "/chooseMethod",
+    name: "chooseMethod",
+    component: chooseCreateMethod
   }
 
 
