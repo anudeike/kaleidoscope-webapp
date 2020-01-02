@@ -13,9 +13,11 @@
                             <v-flex>
                                 <v-card color="transparent" flat>
                                     <v-card-text>
-                                        <v-btn color="purple" outlined block>
-                                            from image
-                                        </v-btn>
+                                        <router-link to="/createFromImage" style="text-decoration: none;">
+                                            <v-btn color="purple" outlined block>
+                                                from image
+                                            </v-btn>
+                                        </router-link>
                                     </v-card-text>
                                 </v-card>
                             </v-flex>

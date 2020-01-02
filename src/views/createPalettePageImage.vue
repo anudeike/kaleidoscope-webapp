@@ -2,10 +2,9 @@
     <!--This is the create palette stuff using the image upload feature-->
     <v-stepper fill-height v-model="e6" vertical non-linear>
 
-        <!-- Step 1-->
-        <v-stepper-step editable step="1">
-            Name your Palette
-            <small> Make it catchy! </small>
+        <!-- Step 1 upload the image-->
+        <v-stepper-step step="1">
+            Upload your image
         </v-stepper-step>
 
         <v-stepper-content step="1">

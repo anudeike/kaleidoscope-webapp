@@ -6,6 +6,7 @@ import createPalettePage from "../views/createPalettePage";
 import auth from "../views/authPage";
 import searchResultsPage from "../views/searchResultsPage";
 import chooseCreateMethod from "../views/chooseCreateMethod";
+import createPalettePageImage from "../views/createPalettePageImage";
 
 Vue.use(VueRouter);
 
@@ -49,7 +50,13 @@ const routes = [
     path: "/chooseMethod",
     name: "chooseMethod",
     component: chooseCreateMethod
+  },
+  {
+    path: '/createFromImage',
+    name: "createFromImage",
+    component: createPalettePageImage, // may want to add meta route?
   }
+
 
 
 ];
