@@ -8,19 +8,42 @@
         </v-stepper-step>
 
         <v-stepper-content step="1">
-            <v-card>
-                <v-card-text>
-                    <v-text-field label="Regular" v-model="paletteInfo.title">
+            <v-layout column wrap>
+                <v-flex>
+                    <v-layout column v-if="!paletteInfo.image" class="pa-4">
+                        <!--center for the newEvent component-->
+                        <ImageUpload v-model="paletteInfo.image">
+                            <div slot="activator">
+                                <v-flex class="text-center">
+                                    <v-btn>
+                                        Upload Image
+                                    </v-btn>
+                                </v-flex>
+                            </div>
+                        </ImageUpload>
+                    </v-layout>
+                    <!--only shows up if the image is inputted-->
+                    <v-layout pt-4 row wrap align-center justify-center v-if="paletteInfo.image">
+                        <v-flex>
+                            <ImageUpload v-model="paletteInfo.image">
+                                <div slot="activator">
+                                    <v-card class="elevation-10">
+                                        <v-img :src="paletteInfo.image.imageURL" aspect-ratio="1"></v-img>
+                                    </v-card>
+                                </div>
+                            </ImageUpload>
+                        </v-flex>
+                    </v-layout>
 
-                    </v-text-field>
-                </v-card-text>
-
-                <v-card-actions>
-                    <v-btn color="primary" @click="e6 = 2; saveStep()">
-                        Continue
+                </v-flex>
+                <!-- only shows if there is a picture-->
+                <v-flex class="pb-3" v-if="paletteInfo.image">
+                    <!-- should start generating colors as soon as you continue on -->
+                    <v-btn block @click="generateColors">
+                        Generate Colors
                     </v-btn>
-                </v-card-actions>
-            </v-card>
+                </v-flex>
+            </v-layout>
         </v-stepper-content>
 
         <!-- Step 2 -->
@@ -104,11 +127,14 @@
 
 <script>
     import colorPicker from '../components/colorPicker.vue';
+    import ImageUpload from '../components/ImageUpload';
+
     //import firebase from 'firebase';
     export default {
         name: "createPalettePage",
         components: {
-          colorPicker: colorPicker
+          colorPicker: colorPicker,
+          ImageUpload: ImageUpload
         },
         data () {
             return {
@@ -119,13 +145,17 @@
                     description: "",
                     author: "",
                     chips: ['all'],
-                    UID: ""
+                    UID: "",
+                    image: null
                 },
                 chips: [''],
                 items: ['nature', 'regal', 'fashion','amber', 'bold', 'energetic', 'bright'],
             }
         },
         methods: {
+            generateColors: function () {
+
+            },
             remove (item) {
                 // stop any errors
                 if(this.chips.length === 0){
