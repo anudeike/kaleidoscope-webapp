@@ -28,7 +28,7 @@
             errorDialog: null,
             errorText: '',
             uploadFieldName: 'file',
-            maxSize: 2048,
+            maxSize: 4096,
             count: 0
         }),
         props: {
@@ -51,13 +51,14 @@
                     } else if (size > 1) {
                         // check whether the size is greater than the size limit
                         this.errorDialog = true;
-                        this.errorText = 'Your file is too big! Please select an image under 2MB';
+                        this.errorText = 'Your file is too big! Please select an image under 4MB';
                     } else {
-                        // Append file into FormData & turn file into image UR
+                        // Append file into FormData & turn file into image URL
                         //console.log(this.count);
                         let formData = new FormData();
                         let imageURL = URL.createObjectURL(imageFile);
                         formData.append(fieldName, imageFile);
+
                         // Emit FormData & image URL to the parent component
                         this.$emit('input', {imageFile, imageURL});
                     }

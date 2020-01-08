@@ -8,7 +8,7 @@
         </v-stepper-step>
 
         <v-stepper-content step="1">
-            <v-layout column wrap>
+            <v-layout row wrap>
                 <v-flex>
                     <v-layout column v-if="!paletteInfo.image" class="pa-4">
                         <!--center for the newEvent component-->
@@ -35,14 +35,17 @@
                         </v-flex>
                     </v-layout>
 
+                    <v-layout class="pa-10">
+                        <v-flex class="pb-3" v-if="paletteInfo.image">
+                            <!-- should start generating colors as soon as you continue on -->
+                            <v-btn block @click="generateColors">
+                                Generate Colors
+                            </v-btn>
+                        </v-flex>
+                    </v-layout>
+
                 </v-flex>
-                <!-- only shows if there is a picture-->
-                <v-flex class="pb-3" v-if="paletteInfo.image">
-                    <!-- should start generating colors as soon as you continue on -->
-                    <v-btn block @click="generateColors">
-                        Generate Colors
-                    </v-btn>
-                </v-flex>
+
             </v-layout>
         </v-stepper-content>
 
