@@ -39,6 +39,15 @@ export const store = new Vuex.Store({
                     height: "10vh"
                 }
             ]
+        },
+        // not sure how this will effect how the palettes are put into the database
+        paletteFromImage: {
+            UUID: "",
+            title: "",
+            description: "",
+            author: "",
+            tags: ["all"],
+            score: 0
         }
 
     },

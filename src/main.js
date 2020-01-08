@@ -10,6 +10,7 @@ import { store } from "./store/store.js";
 Vue.use(VueResource);
 Vue.config.productionTip = false;
 
+
 // fire
 new Vue({
   store: store,

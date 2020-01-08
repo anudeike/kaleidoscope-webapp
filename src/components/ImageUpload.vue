@@ -60,7 +60,7 @@
                         formData.append(fieldName, imageFile);
 
                         // Emit FormData & image URL to the parent component
-                        this.$emit('input', {imageFile, imageURL});
+                        this.$emit('input', {imageFile, formData, imageURL});
                     }
                     this.count++;
                 }
