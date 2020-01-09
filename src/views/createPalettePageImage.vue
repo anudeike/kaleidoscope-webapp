@@ -163,7 +163,7 @@
                 // testing the route to see that it works
                 this.$http.post(`http://127.0.0.1:3001/getColorsFromImage/`,this.paletteInfo.image.formData).then((data) => {
                     this.resData = data;
-                    //alert(typeof this.paletteInfo.image.imageFile);
+
                 }).catch((e) => {
                     alert(e)
                 });
