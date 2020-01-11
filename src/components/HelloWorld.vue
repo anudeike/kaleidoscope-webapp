@@ -5,21 +5,35 @@
 
             </v-flex>
             <v-flex class="text-center">
-                <span><p class="display-1 font-weight-light white--text shadow"> Hello, {{ getUserFromState }} </p></span>
-                <span>
-                    <p class="display-4 white--text shadow"> Kaleidoscope </p>
-                </span>
-                <v-text-field
-                        label="enter a term"
-                        color="white"
-                        v-model="searchTerm"
-                        filled
-                        clearable
-                        required>
+                <v-layout column>
+                    <v-flex>
+                        <span><p class="display-1 font-weight-light white--text shadow"> Hello, {{ getUserFromState }} </p></span>
+                    </v-flex>
+                    <v-flex v-if="$vuetify.breakpoint.xsOnly">
+                        <span>
+                            <p class="display-2 font-weight-light white--text shadow"> Kaleidoscope </p>
+                        </span>
+                    </v-flex>
+                    <v-flex v-else>
+                        <span>
+                            <p class="display-4 white--text shadow"> Kaleidoscope </p>
+                        </span>
+                    </v-flex>
+                    <v-flex>
+                        <v-text-field
+                                label="enter a term"
+                                color="white"
+                                v-model="searchTerm"
+                                filled
+                                clearable
+                                required>
 
-                </v-text-field>
-
-                <v-btn x-large color="purple darken-3" dark @click="submit">Search</v-btn>
+                        </v-text-field>
+                    </v-flex>
+                    <v-flex>
+                        <v-btn x-large color="purple darken-3" dark @click="submit">Search</v-btn>
+                    </v-flex>
+                </v-layout>
             </v-flex>
             <v-flex class="text-center placeholder">
 

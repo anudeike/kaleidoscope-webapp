@@ -20,24 +20,26 @@
 
       <v-spacer></v-spacer>
 
-      <router-link to="/create">
+      <!--should send to choose method -->
+      <router-link to="/chooseMethod" style="text-decoration: none;">
         <v-btn
                 color="purple"
                 class="white--text mr-2"
                 outlined
-                to="/create"
+                to="/chooseMethod"
         >
           <span class="">Create Palette</span>
         </v-btn>
       </router-link>
 
-      <router-link to="/auth">
+      <router-link to="/auth" style="text-decoration: none;">
         <v-btn>
           <v-icon>mdi-account</v-icon>
         </v-btn>
       </router-link>
 
-      <router-link to="/chooseMethod">
+      <!-- should send the person to their account -->
+      <router-link to="/">
         <v-btn icon>
           <v-icon>mdi-menu</v-icon>
         </v-btn>
