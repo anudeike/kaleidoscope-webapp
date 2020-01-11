@@ -2,6 +2,23 @@
     <!--This is the create palette stuff using the image upload feature-->
     <v-stepper fill-height v-model="e6" vertical non-linear>
 
+        <v-dialog v-model="connectionRefusedError" max-width="290">
+            <v-card>
+                <v-card-title class="headline font-weight-light">
+                    Shoot, looks like our <br>
+                    server isn't responding
+                </v-card-title>
+                <v-card-text>
+                    It'll be back up in a moment. In the meantime, take a look at some palettes.
+                </v-card-text>
+                <v-card-actions>
+                    <v-spacer></v-spacer>
+                    <v-btn color="green darken-1" text @click="connectionRefusedError = false">
+                        Exit
+                    </v-btn>
+                </v-card-actions>
+            </v-card>
+        </v-dialog>
         <!-- Step 1 upload the image-->
         <v-stepper-step step="1">
             Upload your image
@@ -151,21 +168,23 @@
                     UID: "",
                     image: null
                 },
-                resData: "",
+                resData: null,
                 chips: [''],
                 items: ['nature', 'regal', 'fashion','amber', 'bold', 'energetic', 'bright'],
+                connectionRefusedError: false,
             }
         },
         methods: {
             generateColors: function () {
-                this.resData = this.paletteInfo.image.formData;
-                alert(this.resData);
+
                 // testing the route to see that it works
                 this.$http.post(`http://127.0.0.1:3001/getColorsFromImage/`,this.paletteInfo.image.formData).then((data) => {
                     this.resData = data;
 
                 }).catch((e) => {
-                    alert(e)
+                    if (e.status === 0){
+                        this.connectionRefusedError = true;
+                    }
                 });
             },
             remove (item) {

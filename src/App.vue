@@ -20,8 +20,19 @@
 
       <v-spacer></v-spacer>
 
+      <router-link v-if="$vuetify.breakpoint.xsOnly" to="/chooseMethod" style="text-decoration: none;">
+        <v-btn
+                color="purple"
+                class="white--text mr-2"
+                outlined
+                to="/chooseMethod"
+        >
+          <v-icon>mdi-plus</v-icon>
+        </v-btn>
+      </router-link>
+
       <!--should send to choose method -->
-      <router-link to="/chooseMethod" style="text-decoration: none;">
+      <router-link v-else to="/chooseMethod" style="text-decoration: none;">
         <v-btn
                 color="purple"
                 class="white--text mr-2"
@@ -31,6 +42,7 @@
           <span class="">Create Palette</span>
         </v-btn>
       </router-link>
+
 
       <router-link to="/auth" style="text-decoration: none;">
         <v-btn>
