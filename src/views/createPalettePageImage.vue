@@ -19,6 +19,21 @@
                 </v-card-actions>
             </v-card>
         </v-dialog>
+
+        <v-dialog v-model="progress" max-width="290">
+            <v-card>
+
+                <v-card-text>
+                    <v-layout row fill-height grid-list-md>
+                        <v-flex class="text-center">
+                            <PulseLoader :loading="progress"></PulseLoader>
+                        </v-flex>
+                    </v-layout>
+
+                </v-card-text>
+            </v-card>
+        </v-dialog>
+
         <!-- Step 1 upload the image-->
         <v-stepper-step step="1">
             Upload your image
@@ -66,7 +81,7 @@
             </v-layout>
         </v-stepper-content>
 
-        <!-- Step 2 -->
+        <!-- Step 3 -->
         <v-stepper-step editable step="2">
             Describe the Palette
             <small> Be as clear and concise as possible! </small>
@@ -148,18 +163,19 @@
 <script>
     import colorPicker from '../components/colorPicker.vue';
     import ImageUpload from '../components/ImageUpload';
+    import PulseLoader from "vue-spinner/src/PulseLoader";
 
     //import firebase from 'firebase';
     export default {
         name: "createPalettePage",
         components: {
+            PulseLoader,
           colorPicker: colorPicker,
           ImageUpload: ImageUpload
         },
         data () {
             return {
                 e6: "",
-                loading: false,
                 paletteInfo: {
                     title: "",
                     description: "",
@@ -172,15 +188,17 @@
                 chips: [''],
                 items: ['nature', 'regal', 'fashion','amber', 'bold', 'energetic', 'bright'],
                 connectionRefusedError: false,
+                progress: false
             }
         },
         methods: {
             generateColors: function () {
+                // set loading to true
+                this.progress = true;
 
                 // testing the route to see that it works
                 this.$http.post(`http://127.0.0.1:3001/getColorsFromImage/`,this.paletteInfo.image.formData).then((data) => {
                     this.resData = data;
-
                 }).catch((e) => {
                     if (e.status === 0){
                         this.connectionRefusedError = true;
