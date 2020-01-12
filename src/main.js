@@ -7,16 +7,18 @@ import './firebase';
 import VueResource from "vue-resource";
 import { store } from "./store/store.js";
 import PulseLoader from 'vue-spinner/src/PulseLoader';
+import RotateLoader from 'vue-spinner/src/RotateLoader';
 
 Vue.use(VueResource);
-Vue.use(PulseLoader);
+
 Vue.config.productionTip = false;
 
 
 // fire
 new Vue({
   components: {
-    PulseLoader
+    PulseLoader,
+    RotateLoader
   },
   store: store,
   router,

@@ -24,11 +24,20 @@
             <v-card>
 
                 <v-card-text>
-                    <v-layout row fill-height grid-list-md>
-                        <v-flex class="text-center">
-                            <PulseLoader :loading="progress"></PulseLoader>
-                        </v-flex>
-                    </v-layout>
+                    <v-container bg fill-height grid-list-md text-xs-center>
+                        <v-layout column wrap align-center>
+                            <v-flex class="text-center">
+                                <span class="headline font-weight-light">
+                                    One Moment...
+                                </span>
+                            </v-flex>
+
+                            <v-flex class="text-center mt-4">
+                                <RotateLoader :loading="progress"></RotateLoader>
+                            </v-flex>
+                        </v-layout>
+                    </v-container>
+
 
                 </v-card-text>
             </v-card>
@@ -163,13 +172,13 @@
 <script>
     import colorPicker from '../components/colorPicker.vue';
     import ImageUpload from '../components/ImageUpload';
-    import PulseLoader from "vue-spinner/src/PulseLoader";
+    import RotateLoader from "vue-spinner/src/RotateLoader";
 
     //import firebase from 'firebase';
     export default {
         name: "createPalettePage",
         components: {
-            PulseLoader,
+            RotateLoader,
           colorPicker: colorPicker,
           ImageUpload: ImageUpload
         },
@@ -198,8 +207,11 @@
 
                 // testing the route to see that it works
                 this.$http.post(`http://127.0.0.1:3001/getColorsFromImage/`,this.paletteInfo.image.formData).then((data) => {
+                    this.progress = false;
                     this.resData = data;
+
                 }).catch((e) => {
+                    this.progress = false;
                     if (e.status === 0){
                         this.connectionRefusedError = true;
                     }
