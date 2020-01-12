@@ -76,8 +76,36 @@
                         </v-flex>
                     </v-layout>
 
-                    <v-layout class="pa-10">
-                        <v-flex class="pb-3" v-if="paletteInfo.image">
+                    <v-layout column class="pa-10" v-if="paletteInfo.image">
+                        <v-flex>
+                            <span class="subheading font-weight-light">
+                                Number of Colors in Palette
+                            </span>
+                        </v-flex>
+                        <v-flex class="pb-3" >
+                            <v-slider
+                                    v-model="colorAmount"
+                                    min="1"
+                                    max="50"
+
+                                    hide-details
+                            >
+                                <template v-slot:append>
+                                    <v-text-field
+                                            v-model="colorAmount"
+                                            class="mt-0 pt-0"
+                                            hide-details
+                                            single-line
+                                            type="number"
+                                            style="width: 60px"
+                                    ></v-text-field>
+                                </template>
+                            </v-slider>
+                        </v-flex>
+                    </v-layout>
+
+                    <v-layout class="px-10" v-if="paletteInfo.image">
+                        <v-flex class="pb-3">
                             <!-- should start generating colors as soon as you continue on -->
                             <v-btn block @click="generateColors">
                                 Generate Colors
@@ -197,7 +225,8 @@
                 chips: [''],
                 items: ['nature', 'regal', 'fashion','amber', 'bold', 'energetic', 'bright'],
                 connectionRefusedError: false,
-                progress: false
+                progress: false,
+                colorAmount: 5
             }
         },
         methods: {
