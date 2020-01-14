@@ -1,4 +1,8 @@
-# kaleidoscope-webapp
+## kaleidoscope-webapp
+
+# Welcome to the Official Kaleidoscope Github Repository!
+Kaleidoscope is a platform to view, create and share color inspiration from all around the world! Our aim is to create a community of artists of all trades who are passionate about color harmony and color theory, hopefully making picking colors a lot easier in the process!
+
 
 ## Project setup
 ```
