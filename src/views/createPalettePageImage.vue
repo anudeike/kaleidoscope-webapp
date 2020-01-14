@@ -120,7 +120,7 @@
 
         <!-- Step 3 -->
         <v-stepper-step editable step="2">
-            Describe the Palette
+            Palette Colors
             <small> Be as clear and concise as possible! </small>
         </v-stepper-step>
 
@@ -234,10 +234,14 @@
                 // set loading to true
                 this.progress = true;
 
+                // append the colorAmount to the formdata
+                this.paletteInfo.image.formData.set("colorAmount",this.colorAmount);
+
                 // testing the route to see that it works
-                this.$http.post(`http://127.0.0.1:3001/getColorsFromImage/`,this.paletteInfo.image.formData).then((data) => {
+                this.$http.post(`http://127.0.0.1:3001/getColorsFromImage/`, this.paletteInfo.image.formData).then((data) => {
                     this.progress = false;
                     this.resData = data;
+                    //this.e6 = "2"; // move to the next panel
 
                 }).catch((e) => {
                     this.progress = false;
