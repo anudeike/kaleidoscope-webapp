@@ -121,23 +121,61 @@
         <!-- Step 3 -->
         <v-stepper-step editable step="2">
             Palette Colors
-            <small> Be as clear and concise as possible! </small>
+            <small> View the colors from your palette! </small>
         </v-stepper-step>
 
         <v-stepper-content step="2">
-            <v-card>
-                <v-card-text>
-                    <v-textarea label="describe away!" v-model="paletteInfo.description" hint="here's a hint: be creative">
+            <!-- here we will display the picture next to the color palette -->
+            <v-container fluid fill-height v-if="paletteInfo.image">
+                <v-layout row wrap>
+                    <v-flex xs12>
+                        <v-card flat tile class="d-flex">
+                            <v-card-text>
+                                <v-img
+                                        :src=paletteInfo.image.imageURL
+                                        :lazy-src="paletteInfo.image.imageURL"
+                                        aspect-ratio="1"
+                                >
+                                    <template v-slot:placeholder>
+                                        <v-row
+                                                class="fill-height ma-0"
+                                                align="center"
+                                                justify="center"
+                                        >
+                                            <RotateLoader></RotateLoader>
 
-                    </v-textarea>
-                </v-card-text>
+                                        </v-row>
+                                    </template>
 
-                <v-card-actions>
-                    <v-btn color="primary" @click="e6 = 3; saveStep()">
-                        Continue
-                    </v-btn>
-                </v-card-actions>
-            </v-card>
+                                </v-img>
+                            </v-card-text>
+                        </v-card>
+
+                    </v-flex>
+                    <v-flex v-if="resData">
+                        <v-row v-if="resData.body">
+                            <v-col
+                                    v-for="c in resData.body"
+                                    :key="c"
+                                    class="d-flex child-flex"
+                                    cols="3"
+                            >
+                                <v-card tile class="d-flex" height="100px" :color="c">
+                                    <v-card-text></v-card-text>
+                                </v-card>
+
+                            </v-col>
+                        </v-row>
+                    </v-flex>
+                </v-layout>
+            </v-container>
+            <v-container v-else bg fill-height grid-list-md text-xs-center>
+                <v-layout row wrap>
+                    <v-flex>
+                        Please Upload an Image
+                    </v-flex>
+                </v-layout>
+            </v-container>
         </v-stepper-content>
 
         <!-- Step 3 -->
@@ -241,7 +279,7 @@
                 this.$http.post(`http://127.0.0.1:3001/getColorsFromImage/`, this.paletteInfo.image.formData).then((data) => {
                     this.progress = false;
                     this.resData = data;
-                    //this.e6 = "2"; // move to the next panel
+                    this.e6 = "2"; // move to the next panel
 
                 }).catch((e) => {
                     this.progress = false;
