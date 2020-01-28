@@ -172,10 +172,10 @@
                         </v-card>
 
                     </v-flex>
-                    <v-flex md6 v-if="paletteInfo.colors">
-                        <v-row v-if="colors.body">
+                    <v-flex md6 v-if="resData">
+                        <v-row v-if="resData.body">
                             <v-col
-                                    v-for="c in colors.body"
+                                    v-for="c in resData.body"
                                     :key="c"
                                     class="d-flex child-flex"
                                     cols="3"
@@ -319,7 +319,8 @@
                 // testing the route to see that it works
                 this.$http.post(`http://127.0.0.1:3001/getColorsFromImage/`, this.paletteInfo.image.formData).then((data) => {
                     this.progress = false;
-                    this.paletteInfo.colors = data; // put the color data in as an array
+                    this.resData = data;
+                    this.paletteInfo.colors = data.body; // set the palette colors at the same time
                     this.e6 = "2"; // move to the next panel
 
                 }).catch((e) => {
