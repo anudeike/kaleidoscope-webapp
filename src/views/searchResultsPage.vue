@@ -30,8 +30,8 @@
                                 class="py-2 px-2"
                                 v-for="palette in targetPalettes"
                                 :key="palette.key">
-                            <!--on the rated - recalculate the score-->
-                            <result v-bind:palette_info="palette"></result>
+                            <!--will replace this will imageResults-->
+                            <imageResult v-bind:palette_info="palette"></imageResult>
                         </v-flex>
                     </v-layout>
                 </v-container>
@@ -43,11 +43,12 @@
 <script>
     //import result from "../components/result";
 
-    import Result from "../components/result";
+    import imageResult from "../components/imageResults";
+
     export default {
         name: "searchResultsPage",
         components: {
-            Result
+            imageResult
         },
         data (){
             return {
@@ -63,18 +64,20 @@
             this.query = this.$route.params.query;
 
             // get the posts from firebase
-            this.$http.get('https://kaleidoscope-app-92131.firebaseio.com/palettes.json').then((data) => {
+            this.$http.get('https://kaleidoscope-app-92131.firebaseio.com/imagePalettes.json').then((data) => {
                 return data.json(); // returns a promise to use below
             }).then((data) => {
-                this.paletteResults = data;
+                //this.paletteResults = data;
 
-
-                // append the keys - get the targeted palettes
-                for (let key in data){
-                    if(data[key].tags.includes(this.query)){
+                // filter to get the targeted palettes
+                for(let key in data){
+                    if(data[key].chips.includes(this.query)){
                         this.targetPalettes.push(data[key]);
                     }
                 }
+
+                console.log(this.targetPalettes);
+
 
 
 

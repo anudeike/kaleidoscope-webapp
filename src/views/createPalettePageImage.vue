@@ -43,8 +43,28 @@
             </v-card>
         </v-dialog>
 
+        <v-dialog v-model="posting" max-width="290">
+            <v-card>
+                <v-card-text>
+                    <v-container bg fill-height grid-list-md text-xs-center>
+                        <v-layout column wrap align-center>
+                            <v-flex class="text-center">
+                                <span class="headline font-weight-light">
+                                    Posting...
+                                </span>
+                            </v-flex>
+
+                            <v-flex class="text-center mt-4">
+                                <RotateLoader :loading="posting"></RotateLoader>
+                            </v-flex>
+                        </v-layout>
+                    </v-container>
+                </v-card-text>
+            </v-card>
+        </v-dialog>
+
         <!-- Step 1 upload the image-->
-        <v-stepper-step step="1">
+        <v-stepper-step editable step="1">
             Upload your image
         </v-stepper-step>
 
@@ -118,7 +138,7 @@
             </v-layout>
         </v-stepper-content>
 
-        <!-- Step 3 -->
+        <!-- Step 2 -->
         <v-stepper-step editable step="2">
             Palette Colors
             <small> View the colors from your palette! </small>
@@ -128,7 +148,7 @@
             <!-- here we will display the picture next to the color palette -->
             <v-container fluid fill-height v-if="paletteInfo.image">
                 <v-layout row wrap>
-                    <v-flex xs12>
+                    <v-flex md6 xs12>
                         <v-card flat tile class="d-flex">
                             <v-card-text>
                                 <v-img
@@ -152,16 +172,20 @@
                         </v-card>
 
                     </v-flex>
-                    <v-flex v-if="resData">
-                        <v-row v-if="resData.body">
+                    <v-flex md6 v-if="paletteInfo.colors">
+                        <v-row v-if="colors.body">
                             <v-col
-                                    v-for="c in resData.body"
+                                    v-for="c in colors.body"
                                     :key="c"
                                     class="d-flex child-flex"
                                     cols="3"
                             >
                                 <v-card tile class="d-flex" height="100px" :color="c">
-                                    <v-card-text></v-card-text>
+                                    <v-card-text>
+                                        <span class="white--text">
+                                            {{ c }}
+                                        </span>
+                                    </v-card-text>
                                 </v-card>
 
                             </v-col>
@@ -169,23 +193,38 @@
                     </v-flex>
                 </v-layout>
             </v-container>
+            <!-- if there is no paletteInfo -->
             <v-container v-else bg fill-height grid-list-md text-xs-center>
                 <v-layout row wrap>
                     <v-flex>
-                        Please Upload an Image
+                        <v-card flat>
+                            <v-card-text>
+                                <v-alert type="error">
+                                    Please Upload an Image.
+                                </v-alert>
+                            </v-card-text>
+                        </v-card>
                     </v-flex>
                 </v-layout>
             </v-container>
         </v-stepper-content>
 
-        <!-- Step 3 -->
+        <!--Step 3-->
         <v-stepper-step editable step="3">
-            Create The Palette!
-            <small> Get Creative! </small>
+            Choose a title
+            <small> Title it something cool! </small>
         </v-stepper-step>
 
         <v-stepper-content step="3">
-            <color-picker @clicked="e6 = 4, saveStep()"></color-picker>
+            <v-layout>
+                <v-flex>
+                    <v-textarea
+                            label="enter title here"
+                            v-model="paletteInfo.title"
+                            value="My awesome palette">
+                    </v-textarea>
+                </v-flex>
+            </v-layout>
         </v-stepper-content>
 
         <!-- Step 4 -->
@@ -236,35 +275,37 @@
 </template>
 
 <script>
-    import colorPicker from '../components/colorPicker.vue';
     import ImageUpload from '../components/ImageUpload';
     import RotateLoader from "vue-spinner/src/RotateLoader";
+    import firebase from 'firebase';
 
     //import firebase from 'firebase';
     export default {
         name: "createPalettePage",
         components: {
-            RotateLoader,
-          colorPicker: colorPicker,
+          RotateLoader,
           ImageUpload: ImageUpload
         },
         data () {
             return {
                 e6: "",
                 paletteInfo: {
-                    title: "",
-                    description: "",
                     author: "",
                     chips: ['all'],
                     UID: "",
-                    image: null
+                    image: null,
+                    firebaseImageURL: null,
+                    date: new Date().toISOString().substr(0,10),
+                    title: "",
+                    colors: null
                 },
                 resData: null,
                 chips: [''],
                 items: ['nature', 'regal', 'fashion','amber', 'bold', 'energetic', 'bright'],
                 connectionRefusedError: false,
                 progress: false,
-                colorAmount: 5
+                colorAmount: 5,
+                posting: false
             }
         },
         methods: {
@@ -278,7 +319,7 @@
                 // testing the route to see that it works
                 this.$http.post(`http://127.0.0.1:3001/getColorsFromImage/`, this.paletteInfo.image.formData).then((data) => {
                     this.progress = false;
-                    this.resData = data;
+                    this.paletteInfo.colors = data; // put the color data in as an array
                     this.e6 = "2"; // move to the next panel
 
                 }).catch((e) => {
@@ -306,6 +347,11 @@
                 //this.pal = pal;
             },
             submit: function() {
+                // set posting to true
+                this.posting = true;
+
+                // add the title to the chips
+                this.paletteInfo.chips.push(this.paletteInfo.title);
 
                 // generate a unique id for each palette
                 var d = new Date().getTime();
@@ -327,28 +373,43 @@
                     return (c === 'x' ? r : (r & 0x3 | 0x8)).toString(16);
                 });
 
-                // add the title to the chips
-                this.paletteInfo.chips.push(this.paletteInfo.title);
-                this.paletteInfo.chips.push(this.paletteInfo.author); // push the author so i can search that way
+                // instead of updating the state (no info needs to persist)
+                // we just send over the paletteInfo object
 
-                // save to the store
-                this.$store.commit('changePaletteInfo', this.paletteInfo);
+                // define storage
+                var storage = firebase.storage();
+                let file = this.paletteInfo.image.imageFile;
+                // create a ref
+                storage.ref('/imageForPalette' + file.name).put(file).then(response => {
+                    response.ref.getDownloadURL().then((downloadURL) => {
+                        this.paletteInfo.firebaseImageURL = downloadURL;
+                    }).then(() => {
+                        // post the palette information here
+                        this.$http.post("https://kaleidoscope-app-92131.firebaseio.com/imagePalettes.json", this.paletteInfo).then(() => {
+                            this.posting = false;
+                            this.$router.push('home');
+                        });
+                    })
+                })
 
-                // set the loading to true
-                this.loading = true;
+                // // add the title to the chips
+                // this.paletteInfo.chips.push(this.paletteInfo.title);
+                // this.paletteInfo.chips.push(this.paletteInfo.author); // push the author so i can search that way
+                //
+                // // save to the store
+                // this.$store.commit('changePaletteInfo', this.paletteInfo);
+                //
+                // // set the loading to true
+                // this.loading = true;
 
-                // store the state as a variable
-                var pal = this.$store.state.createdPalette;
-                //this.pal = pal;
+                // // store the state as a variable
+                // var pal = this.$store.state.createdPalette;
+                // //this.pal = pal;
 
-                // send to firebase
-                this.$http.post("https://kaleidoscope-app-92131.firebaseio.com/palettes.json", pal).then(() => {
-                    //alert(data);
-                    this.loading = false;
-                });
+
 
                 // route to the next page
-                this.$router.push('home');
+
 
 
             }

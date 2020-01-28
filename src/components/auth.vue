@@ -73,6 +73,7 @@
                                     :counter="15"
                                     label="Enter a password"
                                     :rules="passwordRules"
+                                    :type="'password'"
                             ></v-text-field>
                         </v-col>
                     </v-row>
