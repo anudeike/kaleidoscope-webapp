@@ -105,7 +105,7 @@
                         <v-flex class="pb-3" >
                             <v-slider
                                     v-model="colorAmount"
-                                    min="1"
+                                    min="5"
                                     max="50"
 
                                     hide-details

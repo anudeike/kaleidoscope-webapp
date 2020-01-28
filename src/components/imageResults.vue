@@ -12,6 +12,14 @@
             </template>
         </v-img>
 
+        <!-- add the colors -->
+        <v-card-text>
+            <v-layout row>
+                <v-layout>
+
+                </v-layout>
+            </v-layout>
+        </v-card-text>
 
     </v-card>
 </template>
