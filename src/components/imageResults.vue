@@ -1,5 +1,5 @@
 <template>
-    <v-card>
+    <v-card flat color="grey lighten-3">
         <!-- image at the top -->
         <v-img v-bind:src="p_info.firebaseImageURL">
             <template v-slot:placeholder>
@@ -13,11 +13,18 @@
         </v-img>
 
         <!-- add the colors -->
-        <v-card-text>
-            <v-layout row>
-                <v-layout>
+        <v-card-text >
+            <v-layout class="ma-0" row>
+                <v-flex
+                        v-for="color in p_info.colors.slice(0,5)"
+                        :key="color"
+                >
+                    <v-card flat tile class="d-flex" height="100px" :color="color">
+                        <v-card-text>
 
-                </v-layout>
+                        </v-card-text>
+                    </v-card>
+                </v-flex>
             </v-layout>
         </v-card-text>
 
@@ -39,10 +46,16 @@
             return {
                 p_info: this.palette_info, // seems useless might be good reason?
             }
+        },
+        computed: {
+            palettesHead() {
+                return 3
+            }
         }
     }
 </script>
 
 <style scoped>
+
 
 </style>
