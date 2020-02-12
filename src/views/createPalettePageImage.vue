@@ -317,7 +317,7 @@
                 this.paletteInfo.image.formData.set("colorAmount",this.colorAmount);
 
                 // testing the route to see that it works
-                this.$http.post(`http://127.0.0.1:3001/getColorsFromImage/`, this.paletteInfo.image.formData).then((data) => {
+                this.$http.post(`https://kaleidoscope-aux.herokuapp.com/getColorsFromImage/`, this.paletteInfo.image.formData).then((data) => {
                     this.progress = false;
                     this.resData = data;
                     this.paletteInfo.colors = data.body; // set the palette colors at the same time
