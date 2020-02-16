@@ -51,11 +51,11 @@
       </router-link>
 
       <!-- should send the person to their account -->
-      <router-link to="/">
-        <v-btn icon>
-          <v-icon>mdi-menu</v-icon>
-        </v-btn>
-      </router-link>
+      <!--<router-link to="/">-->
+        <!--<v-btn icon>-->
+          <!--<v-icon>mdi-menu</v-icon>-->
+        <!--</v-btn>-->
+      <!--</router-link>-->
 
 
 

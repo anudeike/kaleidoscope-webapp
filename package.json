@@ -9,6 +9,7 @@
   },
   "dependencies": {
     "core-js": "^3.3.2",
+    "file-saver": "^2.0.2",
     "firebase": "^7.5.0",
     "material-design-icons-iconfont": "^5.0.1",
     "stylus-loader": "^3.0.2",

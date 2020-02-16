@@ -24,11 +24,18 @@
                             <v-flex>
                                 <v-card color="transparent" flat>
                                     <v-card-text>
-                                        <router-link to="/create" style="text-decoration: none;">
-                                            <v-btn color="primary" outlined block>
-                                                from scratch
-                                            </v-btn>
-                                        </router-link>
+                                        <v-tooltip bottom>
+                                            <template v-slot:activator="{ on }">
+                                                <v-btn color="primary" outlined block v-on="on">
+                                                    from scratch
+                                                </v-btn>
+                                            </template>
+
+                                            <span>
+                                                Coming Soon!
+                                            </span>
+                                        </v-tooltip>
+
 
                                     </v-card-text>
                                 </v-card>

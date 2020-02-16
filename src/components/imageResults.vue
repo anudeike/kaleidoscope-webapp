@@ -4,16 +4,16 @@
         <v-dialog v-model="showDialog">
             <v-card>
                 <v-toolbar :color="p_info.colors[0]" >
-                    <v-app-bar-nav-icon></v-app-bar-nav-icon>
+                    <v-app-bar-nav-icon disabled></v-app-bar-nav-icon>
                     <v-toolbar-title class="white--text">{{ p_info.title}}</v-toolbar-title>
                     <v-spacer></v-spacer>
-                    <v-btn icon>
+                    <v-btn icon disabled>
                         <v-icon>mdi-magnify</v-icon>
                     </v-btn>
-                    <v-btn icon>
+                    <v-btn icon disabled>
                         <v-icon>mdi-heart</v-icon>
                     </v-btn>
-                    <v-btn icon>
+                    <v-btn icon disabled>
                         <v-icon>mdi-dots-vertical</v-icon>
                     </v-btn>
                 </v-toolbar>
@@ -45,7 +45,7 @@
                                 </v-card>
 
                             </v-flex>
-                            <v-flex md6>
+                            <v-flex md6 xs12>
                                 <v-row>
                                     <v-col
                                             v-for="c in p_info.colors"
@@ -65,7 +65,7 @@
                                 </v-row>
                             </v-flex>
                             <v-flex>
-                                <v-btn block outlined>
+                                <v-btn @click="createAndDownload" block outlined>
                                     Export Palette to CSS
                                 </v-btn>
                             </v-flex>
@@ -110,6 +110,7 @@
 
 <script>
     import PulseLoader from "vue-spinner/src/PulseLoader";
+    import FileSaver from 'file-saver';
 
     export default {
         name: "imageResults",
@@ -136,8 +137,23 @@
             },
             downloadCSSFile: function () {
                 
+            },
+            createAndDownload: async function () {
+                var outputString = ":root {";
+
+                for(var i = 0; i < this.p_info.colors.length; i++){
+                    outputString += `\n\tvar(color-${i}, ` +  this.p_info.colors[i] + ');';
+                }
+
+                outputString += "\n}";
+
+                console.log(outputString);
+
+                var file = new File([outputString], `${this.p_info.title}.css`, {type: "text/css;charset=utf-8"});
+                FileSaver.saveAs(file);
             }
-        }
+        },
+
     }
 </script>
 
