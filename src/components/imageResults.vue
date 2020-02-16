@@ -63,17 +63,45 @@
 
                                     </v-col>
                                 </v-row>
-                            </v-flex>
-                            <v-flex>
-                                <v-btn @click="createAndDownload" block outlined>
-                                    Export Palette to CSS
-                                </v-btn>
+                                <v-flex>
+                                    <v-layout wrap>
+                                        <v-flex class="pa-3" md6 xs12>
+                                            <v-btn @click="createAndDownload" block outlined>
+                                                Export Palette to CSS
+                                            </v-btn>
+                                        </v-flex>
+                                        <v-flex class="pa-3" md6 xs12>
+                                            <v-btn @click="showDialog2 = !showDialog2" block outlined>
+                                                Export Palette to PNG
+                                            </v-btn>
+                                        </v-flex>
+                                    </v-layout>
+
+                                </v-flex>
                             </v-flex>
                         </v-layout>
                     </v-container>
                 </v-card-text>
             </v-card>
         </v-dialog>
+
+        <!-- second dialog to preview the file -->
+        <v-dialog v-model="showDialog2">
+            <v-card>
+                <!-- toolbar to indicate the preview-->
+                <v-toolbar :color="p_info.colors[1]" >
+                    <v-app-bar-nav-icon disabled></v-app-bar-nav-icon>
+                    <v-toolbar-title class="white--text"> Preview </v-toolbar-title>
+                </v-toolbar>
+                <v-card-text>
+                    <!-- create the canvas --->
+                    <MyCanvas style="width: 500px; height: 500px; background-color: whitesmoke;">
+                        <Box v-for="(c, index) in p_info.colors" :key="c" :index="index" :x1="50 * index" :y1="50" :color="c"></Box>
+                    </MyCanvas>
+                </v-card-text>
+            </v-card>
+        </v-dialog>
+
         <!-- image at the top -->
         <v-img v-bind:src="p_info.firebaseImageURL" @click="toggleDialog">
             <v-card-title>
@@ -111,11 +139,15 @@
 <script>
     import PulseLoader from "vue-spinner/src/PulseLoader";
     import FileSaver from 'file-saver';
+    import MyCanvas from '../components/MyCanvas';
+    import Box from '../components/Box';
 
     export default {
         name: "imageResults",
         components: {
-          PulseLoader
+          PulseLoader,
+          MyCanvas,
+          Box
         },
         props: {
             palette_info: Object
@@ -123,7 +155,8 @@
         data () {
             return {
                 p_info: this.palette_info, // seems useless might be good reason?
-                showDialog: false
+                showDialog: false,
+                showDialog2: false
             }
         },
         computed: {
