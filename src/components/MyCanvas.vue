@@ -42,10 +42,10 @@
             this.$emit('loaded');
         },
         methods: {
-            downloadCanvas: function () {
+            downloadCanvas: function (name) {
                 // download the canvas using it's ref
                 this.$refs['my-canvas'].toBlob((blob) => {
-                    FileSaver.saveAs(blob, "nice_image.png");
+                    FileSaver.saveAs(blob, name + ".png");
                 })
             }
         }

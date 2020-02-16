@@ -180,7 +180,7 @@
                 this.showDialog2 = true;
                 setTimeout(() => {
 
-                    this.$refs.main_canvas.downloadCanvas();
+                    this.$refs.main_canvas.downloadCanvas(this.p_info.title);
 
                 }, 100)
             }
