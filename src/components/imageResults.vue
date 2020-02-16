@@ -71,7 +71,7 @@
                                             </v-btn>
                                         </v-flex>
                                         <v-flex class="pa-3" md6 xs12>
-                                            <v-btn @click="showDialog2 = !showDialog2" block outlined>
+                                            <v-btn @click="downloadImageFromCanvas" block outlined>
                                                 Export Palette to PNG
                                             </v-btn>
                                         </v-flex>
@@ -86,17 +86,16 @@
         </v-dialog>
 
         <!-- second dialog to preview the file -->
-        <v-dialog v-model="showDialog2">
+        <v-dialog v-model="showDialog2" max-width="550px">
             <v-card>
                 <!-- toolbar to indicate the preview-->
                 <v-toolbar :color="p_info.colors[1]" >
-                    <v-app-bar-nav-icon disabled></v-app-bar-nav-icon>
                     <v-toolbar-title class="white--text"> Preview </v-toolbar-title>
                 </v-toolbar>
-                <v-card-text>
+                <v-card-text class="text-center pt-4">
                     <!-- create the canvas --->
-                    <MyCanvas style="width: 500px; height: 500px; background-color: whitesmoke;">
-                        <Box v-for="(c, index) in p_info.colors" :key="c" :index="index" :x1="50 * index" :y1="50" :color="c"></Box>
+                    <MyCanvas @loaded="canvasLoaded = !canvasLoaded" ref="main_canvas" style="width: 500px; height: 500px; background-color: whitesmoke;">
+                        <Box v-for="(c, index) in p_info.colors" :key="c" :index="index" :x1="100 * index" :y1="100" :color="c"></Box>
                     </MyCanvas>
                 </v-card-text>
             </v-card>
@@ -156,20 +155,13 @@
             return {
                 p_info: this.palette_info, // seems useless might be good reason?
                 showDialog: false,
-                showDialog2: false
-            }
-        },
-        computed: {
-            palettesHead() {
-                return 3
+                showDialog2: false,
+                canvasLoaded: false
             }
         },
         methods: {
             toggleDialog: function () {
                 this.showDialog = !this.showDialog;
-            },
-            downloadCSSFile: function () {
-                
             },
             createAndDownload: async function () {
                 var outputString = ":root {";
@@ -180,10 +172,17 @@
 
                 outputString += "\n}";
 
-                console.log(outputString);
 
                 var file = new File([outputString], `${this.p_info.title}.css`, {type: "text/css;charset=utf-8"});
                 FileSaver.saveAs(file);
+            },
+            downloadImageFromCanvas: function () {
+                this.showDialog2 = true;
+                setTimeout(() => {
+
+                    this.$refs.main_canvas.downloadCanvas();
+
+                }, 100)
             }
         },
 

@@ -9,6 +9,9 @@
 </template>
 
 <script>
+    // import the file saver
+    import FileSaver from 'file-saver';
+
     export default {
         name: "MyCanvas",
         data() {
@@ -33,6 +36,18 @@
 
             this.$refs['my-canvas'].width = this.$refs['my-canvas'].parentElement.clientWidth;
             this.$refs['my-canvas'].height = this.$refs['my-canvas'].parentElement.clientHeight;
+
+
+            // emit event to say that it is ready!
+            this.$emit('loaded');
+        },
+        methods: {
+            downloadCanvas: function () {
+                // download the canvas using it's ref
+                this.$refs['my-canvas'].toBlob((blob) => {
+                    FileSaver.saveAs(blob, "nice_image.png");
+                })
+            }
         }
     }
 </script>

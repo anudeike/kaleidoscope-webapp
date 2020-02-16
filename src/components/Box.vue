@@ -54,7 +54,7 @@
             // console.log("\n");
 
             //calculate the row
-            var mult = 1;
+            var mult = 0;
             if (newBox.x >= 500 && newBox.x < 1000) {
                 mult += 1; // add 1 to the multplier
                 newBox.x -= 500 // subtract 500
@@ -67,6 +67,21 @@
             } else if (newBox.x >= 2000 && newBox.x < 2500) {
                 mult += 4; // add 1 to the multplier
                 newBox.x -= 2000 // subtract 2000
+            } else if (newBox.x >= 2500 && newBox.x < 3000) {
+                mult += 5; // add 1 to the multplier
+                newBox.x -= 2500 // subtract 2000
+            } else if (newBox.x >= 3000 && newBox.x < 3500) {
+                mult += 6; // add 1 to the multplier
+                newBox.x -= 3000 // subtract 2000
+            } else if (newBox.x >= 3500 && newBox.x < 4000) {
+                mult += 7; // add 1 to the multplier
+                newBox.x -= 3500 // subtract 2000
+            } else if (newBox.x >= 4000 && newBox.x < 4500) {
+                mult += 8; // add 1 to the multplier
+                newBox.x -= 4000 // subtract 2000
+            }else if (newBox.x >= 4500 && newBox.x < 5000) {
+                mult += 9; // add 1 to the multplier
+                newBox.x -= 4500 // subtract 2000
             }
             //
             // console.log("After: \n");
@@ -78,7 +93,7 @@
             ctx.beginPath();
 
             //draw a rectangle
-            ctx.rect(newBox.x, newBox.y * mult, 50, 50);
+            ctx.rect(newBox.x, newBox.y * mult, 100, 100);
             ctx.fillStyle = newBox.c;
             ctx.fill();
 
