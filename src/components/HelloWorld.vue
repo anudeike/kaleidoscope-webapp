@@ -31,6 +31,11 @@
                         </v-text-field>
                     </v-flex>
                     <v-flex>
+                        <span class="white--text font-weight-light">
+                            Not sure what to do? Try searching 'all'.
+                        </span>
+                    </v-flex>
+                    <v-flex>
                         <v-btn x-large color="purple darken-3" dark @click="submit">Search</v-btn>
                     </v-flex>
                 </v-layout>
