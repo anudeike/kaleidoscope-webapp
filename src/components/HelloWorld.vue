@@ -62,7 +62,7 @@
            this.$router.push({
                name: 'search',
                params: {
-                   query: this.searchTerm
+                   query: this.searchTerm.toLowerCase() // make everything lowercase
                },
            })
        }

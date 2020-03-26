@@ -352,7 +352,7 @@
                 this.posting = true;
 
                 // add the title to the chips
-                this.paletteInfo.chips.push(this.paletteInfo.title);
+                this.paletteInfo.chips.push(this.paletteInfo.title.toLowerCase());
 
                 // generate a unique id for each palette
                 var d = new Date().getTime();
