@@ -172,10 +172,11 @@
                         </v-card>
 
                     </v-flex>
-                    <v-flex md6 v-if="resData">
-                        <v-row v-if="resData">
+                    <!--this deals with the right hand side-->
+                    <v-flex md6 v-if="paletteInfo.colors.length > 0">
+                        <v-row v-if="paletteInfo.colors.length > 0">
                             <v-col
-                                    v-for="c in resData"
+                                    v-for="c in paletteInfo.colors"
                                     :key="c"
                                     class="d-flex child-flex"
                                     cols="3"
@@ -313,7 +314,6 @@
         methods: {
             generateColors: function () {
                 // set loading to true
-                this.progress = true;
 
                 let img = new Image();
                 const ct = new ColorThief();
@@ -329,11 +329,12 @@
                         c.push(hex);
                     }
 
-                    this.paletteInfo.colors, this.resData = c;
 
-                    console.log(this.paletteInfo.colors);
+
+                    this.paletteInfo.colors = c;
+
+                    //console.log(this.paletteInfo.colors);
                     // get rid of dialog
-                    this.progress = false;
 
                     // move to next panel
                     this.e6 = "2";
