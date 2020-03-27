@@ -8,8 +8,12 @@ import VueResource from "vue-resource";
 import { store } from "./store/store.js";
 import PulseLoader from 'vue-spinner/src/PulseLoader';
 import RotateLoader from 'vue-spinner/src/RotateLoader';
+import ColorThief from 'colorthief';
+
+//const colorThief = new ColorThief();
 
 Vue.use(VueResource);
+Vue.use(ColorThief);
 
 Vue.config.productionTip = false;
 

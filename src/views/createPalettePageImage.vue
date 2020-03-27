@@ -173,9 +173,9 @@
 
                     </v-flex>
                     <v-flex md6 v-if="resData">
-                        <v-row v-if="resData.body">
+                        <v-row v-if="resData">
                             <v-col
-                                    v-for="c in resData.body"
+                                    v-for="c in resData"
                                     :key="c"
                                     class="d-flex child-flex"
                                     cols="3"
@@ -278,6 +278,8 @@
     import ImageUpload from '../components/ImageUpload';
     import RotateLoader from "vue-spinner/src/RotateLoader";
     import firebase from 'firebase';
+    import ColorThief from 'colorthief';
+    import chroma from 'chroma-js';
 
     //import firebase from 'firebase';
     export default {
@@ -297,7 +299,7 @@
                     firebaseImageURL: null,
                     date: new Date().toISOString().substr(0,10),
                     title: "",
-                    colors: null
+                    colors: []
                 },
                 resData: null,
                 chips: [''],
@@ -313,22 +315,53 @@
                 // set loading to true
                 this.progress = true;
 
+                let img = new Image();
+                const ct = new ColorThief();
+                img.src = this.paletteInfo.image.imageURL;
+                img.addEventListener('load', () => {
+                    let r = ct.getPalette(img, this.colorAmount);
+
+                    let c = [];
+
+                    for(var i = 0; i < r.length; i++){
+                        var hex = chroma(r[i]).hex();
+                        console.log(hex);
+                        c.push(hex);
+                    }
+
+                    this.paletteInfo.colors, this.resData = c;
+
+                    console.log(this.paletteInfo.colors);
+                    // get rid of dialog
+                    this.progress = false;
+
+                    // move to next panel
+                    this.e6 = "2";
+
+                    //console.log(r);
+                });
+
                 // append the colorAmount to the formdata
-                this.paletteInfo.image.formData.set("colorAmount",this.colorAmount);
+                //this.paletteInfo.image.formData.set("colorAmount",this.colorAmount);
 
                 // testing the route to see that it works
-                this.$http.post(`https://kaleidoscope-aux.herokuapp.com/getColorsFromImage/`, this.paletteInfo.image.formData).then((data) => {
-                    this.progress = false;
-                    this.resData = data;
-                    this.paletteInfo.colors = data.body; // set the palette colors at the same time
-                    this.e6 = "2"; // move to the next panel
-
-                }).catch((e) => {
-                    this.progress = false;
-                    if (e.status === 0){
-                        this.connectionRefusedError = true;
-                    }
-                });
+                // this.$http.post(`https://kaleidoscope-aux.herokuapp.com/getColorsFromImage/`, this.paletteInfo.image.formData).then((data) => {
+                //     this.progress = false;
+                //     this.resData = data;
+                //     this.paletteInfo.colors = data.body; // set the palette colors at the same time
+                //     this.e6 = "2"; // move to the next panel
+                //     // const ct = new ColorThief();
+                //     //
+                //     // let r = ct.getColor(img);
+                //     // console.log(r);
+                //
+                //
+                // }).catch((e) => {
+                //     this.progress = false;
+                //     if (e.status === 0){
+                //         this.connectionRefusedError = true;
+                //     }
+                // });
             },
             remove (item) {
                 // stop any errors
