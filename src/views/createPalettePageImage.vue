@@ -191,6 +191,22 @@
 
                             </v-col>
                         </v-row>
+                        <v-row>
+                            <v-col class="d-flex child-flex">
+                                <v-layout wrap>
+                                    <v-flex class="pa-3" md6 xs12>
+                                        <v-btn @click="createAndDownload" block outlined color="blue">
+                                            Export Palette to CSS
+                                        </v-btn>
+                                    </v-flex>
+                                    <v-flex class="pa-3" md6 xs12>
+                                        <v-btn @click="downloadImageFromCanvas" block outlined color="purple">
+                                            Export Palette to PNG
+                                        </v-btn>
+                                    </v-flex>
+                                </v-layout>
+                            </v-col>
+                        </v-row>
                     </v-flex>
                 </v-layout>
             </v-container>
@@ -208,6 +224,21 @@
                     </v-flex>
                 </v-layout>
             </v-container>
+
+            <v-dialog v-model="showDialog2" max-width="550px">
+                <v-card>
+                    <!-- toolbar to indicate the preview-->
+                    <v-toolbar :color="paletteInfo.colors[1]" >
+                        <v-toolbar-title class="white--text"> Preview </v-toolbar-title>
+                    </v-toolbar>
+                    <v-card-text class="text-center pt-4">
+                        <!-- create the canvas --->
+                        <MyCanvas @loaded="canvasLoaded = !canvasLoaded" ref="main_canvas" style="width: 500px; height: 500px; background-color: whitesmoke;">
+                            <Box v-for="(c, index) in paletteInfo.colors" :key="c" :index="index" :x1="100 * index" :y1="100" :color="c"></Box>
+                        </MyCanvas>
+                    </v-card-text>
+                </v-card>
+            </v-dialog>
         </v-stepper-content>
 
         <!--Step 3-->
@@ -281,13 +312,18 @@
     import firebase from 'firebase';
     import ColorThief from 'colorthief';
     import chroma from 'chroma-js';
+    import FileSaver from 'file-saver';
+    import MyCanvas from '../components/MyCanvas';
+    import Box from '../components/Box';
 
     //import firebase from 'firebase';
     export default {
         name: "createPalettePage",
         components: {
-          RotateLoader,
-          ImageUpload: ImageUpload
+            MyCanvas,
+            Box,
+            RotateLoader,
+            ImageUpload: ImageUpload,
         },
         data () {
             return {
@@ -308,7 +344,8 @@
                 connectionRefusedError: false,
                 progress: false,
                 colorAmount: 5,
-                posting: false
+                posting: false,
+                showDialog2: false
             }
         },
         methods: {
@@ -329,40 +366,13 @@
                         c.push(hex);
                     }
 
-
-
                     this.paletteInfo.colors = c;
-
-                    //console.log(this.paletteInfo.colors);
-                    // get rid of dialog
 
                     // move to next panel
                     this.e6 = "2";
 
                     //console.log(r);
                 });
-
-                // append the colorAmount to the formdata
-                //this.paletteInfo.image.formData.set("colorAmount",this.colorAmount);
-
-                // testing the route to see that it works
-                // this.$http.post(`https://kaleidoscope-aux.herokuapp.com/getColorsFromImage/`, this.paletteInfo.image.formData).then((data) => {
-                //     this.progress = false;
-                //     this.resData = data;
-                //     this.paletteInfo.colors = data.body; // set the palette colors at the same time
-                //     this.e6 = "2"; // move to the next panel
-                //     // const ct = new ColorThief();
-                //     //
-                //     // let r = ct.getColor(img);
-                //     // console.log(r);
-                //
-                //
-                // }).catch((e) => {
-                //     this.progress = false;
-                //     if (e.status === 0){
-                //         this.connectionRefusedError = true;
-                //     }
-                // });
             },
             remove (item) {
                 // stop any errors
@@ -426,28 +436,29 @@
                         });
                     })
                 })
+            },
+            createAndDownload: async function () {
+                var outputString = ":root {";
 
-                // // add the title to the chips
-                // this.paletteInfo.chips.push(this.paletteInfo.title);
-                // this.paletteInfo.chips.push(this.paletteInfo.author); // push the author so i can search that way
-                //
-                // // save to the store
-                // this.$store.commit('changePaletteInfo', this.paletteInfo);
-                //
-                // // set the loading to true
-                // this.loading = true;
+                for(var i = 0; i < this.paletteInfo.colors.length; i++){
+                    outputString += `\n\tvar(color-${i}, ` +  this.paletteInfo.colors[i] + ');';
+                }
 
-                // // store the state as a variable
-                // var pal = this.$store.state.createdPalette;
-                // //this.pal = pal;
+                outputString += "\n}";
 
 
+                var file = new File([outputString], `untitled.css`, {type: "text/css;charset=utf-8"});
+                FileSaver.saveAs(file);
+            },
+            downloadImageFromCanvas: function () {
+                this.showDialog2 = true;
+                setTimeout(() => {
 
-                // route to the next page
+                    this.$refs.main_canvas.downloadCanvas("untitled");
 
+                }, 100)
+            },
 
-
-            }
         },
         mounted () {
             // get the author

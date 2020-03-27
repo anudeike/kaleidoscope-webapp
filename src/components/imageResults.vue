@@ -66,12 +66,12 @@
                                 <v-flex>
                                     <v-layout wrap>
                                         <v-flex class="pa-3" md6 xs12>
-                                            <v-btn @click="createAndDownload" block outlined>
+                                            <v-btn @click="createAndDownload" block outlined color="blue accent-1">
                                                 Export Palette to CSS
                                             </v-btn>
                                         </v-flex>
                                         <v-flex class="pa-3" md6 xs12>
-                                            <v-btn @click="downloadImageFromCanvas" block outlined>
+                                            <v-btn @click="downloadImageFromCanvas" block outlined color="purple">
                                                 Export Palette to PNG
                                             </v-btn>
                                         </v-flex>
