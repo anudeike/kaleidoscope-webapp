@@ -69,14 +69,24 @@
             }).then((data) => {
                 //this.paletteResults = data;
 
+                // have a lists of alternates
+                const TitleQuery = this.query.charAt(0).toUpperCase() + this.query.substring(1);
+                const UppercaseQuery = this.query.toUpperCase();
+
                 // filter to get the targeted palettes
                 for(let key in data){
                     if(data[key].chips.includes(this.query)){
                         this.targetPalettes.push(data[key]);
                     }
-                }
 
-                console.log(this.targetPalettes);
+                    if(data[key].chips.includes(TitleQuery)){
+                        this.targetPalettes.push(data[key]);
+                    }
+
+                    if(data[key].chips.includes(UppercaseQuery)){
+                        this.targetPalettes.push(data[key]);
+                    }
+                }
 
 
 
