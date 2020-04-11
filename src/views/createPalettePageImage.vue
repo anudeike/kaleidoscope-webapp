@@ -122,6 +122,11 @@
                                 </template>
                             </v-slider>
                         </v-flex>
+                        <v-flex>
+                            <v-select :items="sortModes" label="Sort Mode" v-model="selectedMode">
+
+                            </v-select>
+                        </v-flex>
                     </v-layout>
 
                     <v-layout class="px-10" v-if="paletteInfo.image">
@@ -315,6 +320,7 @@
     import FileSaver from 'file-saver';
     import MyCanvas from '../components/MyCanvas';
     import Box from '../components/Box';
+    import Compressor from "compressorjs";
 
     //import firebase from 'firebase';
     export default {
@@ -333,8 +339,8 @@
                     chips: ['all'],
                     UID: "",
                     image: null,
-                    firebaseImageURL: null,
                     date: new Date().toISOString().substr(0,10),
+                    firebaseImageURL: null,
                     title: "",
                     colors: []
                 },
@@ -345,7 +351,9 @@
                 progress: false,
                 colorAmount: 5,
                 posting: false,
-                showDialog2: false
+                showDialog2: false,
+                sortModes: ['None', 'HSL', 'RGB'],
+                selectedMode: 'None'
             }
         },
         methods: {
@@ -358,10 +366,33 @@
                 img.addEventListener('load', () => {
                     let r = ct.getPalette(img, this.colorAmount);
 
+                    // choose how to sort
+                    switch(this.selectedMode){
+                        case "HSL":
+                            r.sort((a, b) => {
+                                // convert to hsl
+                                var aHSL = chroma(a).hsl();
+                                var bHSL = chroma(b).hsl();
+
+                                return aHSL[0] - bHSL[0]
+                            });
+                            break;
+                        case "RGB":
+                            r.sort((a, b) => {
+                                return a[0] - b[0]
+                            });
+                            break;
+                    }
+
+
+                    // sort the amount
                     let c = [];
 
                     for(var i = 0; i < r.length; i++){
-                        var hex = chroma(r[i]).hex();
+                        var hex = chroma(r[i]).hex(); // convert to hex
+
+                        // convert to hsl
+
                         console.log(hex);
                         c.push(hex);
                     }
@@ -424,18 +455,53 @@
                 // define storage
                 var storage = firebase.storage();
                 let file = this.paletteInfo.image.imageFile;
-                // create a ref
-                storage.ref('/imageForPalette' + file.name).put(file).then(response => {
-                    response.ref.getDownloadURL().then((downloadURL) => {
-                        this.paletteInfo.firebaseImageURL = downloadURL;
-                    }).then(() => {
-                        // post the palette information here
-                        this.$http.post("https://kaleidoscope-app-92131.firebaseio.com/imagePalettes.json", this.paletteInfo).then(() => {
-                            this.posting = false;
-                            this.$router.push('home');
-                        });
-                    })
+
+                // get the size of the file before upload
+                console.log("File Size before upload: " + file.size);
+                // compress the file
+
+                // must do this because would exist within the current context
+                let self = this;
+
+                new Compressor(file, {
+                    quality: 0.6,
+                    maxHeight: 1000,
+                    maxWidth:1000,
+                    success(result) {
+
+
+                        //const formData = new FormData();
+
+                        storage.ref('/imageForPalette' + result.name).put(result).then(response => {
+                            response.ref.getDownloadURL().then((downloadURL) => {
+                                self.paletteInfo["firebaseImageURL"] = downloadURL;
+                                // post and then go home
+                                self.$http.post("https://kaleidoscope-app-92131.firebaseio.com/imagePalettes.json", self.paletteInfo).then(() => {
+                                    self.posting = false;
+                                    self.$router.push('home');
+                                });
+
+                            });
+                        })
+                    },
+                    error(err){
+                        console.log(err.message);
+                    },
+
+
                 })
+                // //create a ref
+                // storage.ref('/imageForPalette' + file.name).put(file).then(response => {
+                //     response.ref.getDownloadURL().then((downloadURL) => {
+                //         this.paletteInfo.firebaseImageURL = downloadURL;
+                //     }).then(() => {
+                //         // post the palette information here
+                //         this.$http.post("https://kaleidoscope-app-92131.firebaseio.com/imagePalettes.json", this.paletteInfo).then(() => {
+                //             this.posting = false;
+                //             this.$router.push('home');
+                //         });
+                //     })
+                // })
             },
             createAndDownload: async function () {
                 var outputString = ":root {";
