@@ -296,10 +296,27 @@
                         </template>
 
                     </v-combobox>
+
+                    <v-alert :value="errorState.thrown" type="success">
+                        this is an alert
+                    </v-alert>
+
+                    <v-alert :value="paletteInfo.title.length < 3" type="warning">
+                        Please include a palette title before submitting!
+                    </v-alert>
+
+                    <v-alert :value="!paletteInfo.image" type="warning">
+                        You must upload a picture to submit a palette.
+                    </v-alert>
                 </v-card-text>
 
                 <v-card-actions>
-                    <v-btn block color="primary" @click="submit">
+
+                    <!--add a tool tip if it is disabled-->
+                    <!--<v-tooltip top>-->
+                        <!---->
+                    <!--</v-tooltip>-->
+                    <v-btn block color="primary" :disabled="paletteInfo.title.length < 3 || !paletteInfo.image" @click="submit">
                         Submit Palette
                     </v-btn>
 
@@ -353,7 +370,11 @@
                 posting: false,
                 showDialog2: false,
                 sortModes: ['None', 'HSL', 'RGB'],
-                selectedMode: 'None'
+                selectedMode: 'None',
+                errorState: {
+                    thrown: false,
+                    message: false
+                }
             }
         },
         methods: {
@@ -475,9 +496,14 @@
                         storage.ref('/imageForPalette' + result.name).put(result).then(response => {
                             response.ref.getDownloadURL().then((downloadURL) => {
                                 self.paletteInfo["firebaseImageURL"] = downloadURL;
+
                                 // post and then go home
                                 self.$http.post("https://kaleidoscope-app-92131.firebaseio.com/imagePalettes.json", self.paletteInfo).then(() => {
+                                    // make sure that the error State is false
+                                    self.errorState.thrown = false;
+
                                     self.posting = false;
+
                                     self.$router.push('home');
                                 });
 
@@ -485,6 +511,10 @@
                         })
                     },
                     error(err){
+                        // change the error state to reflect the issue
+                        self.errorState.thrown = true;
+                        self.errorState.message = err.message;
+
                         console.log(err.message);
                     },
 
