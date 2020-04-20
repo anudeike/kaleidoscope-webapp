@@ -504,7 +504,7 @@
 
                                     self.posting = false;
 
-                                    self.$router.push('home');
+                                    self.$router.push({name: 'search', params: {query: self.paletteInfo.title.toLowerCase()}});
                                 });
 
                             });
