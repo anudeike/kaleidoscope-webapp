@@ -170,17 +170,17 @@
                 this.paletteInfo.chips.push(this.paletteInfo.author); // push the author so i can search that way
 
                 // save to the store
-                this.$store.commit('changePaletteInfo', this.paletteInfo);
+                // this.$store.commit('changePaletteInfo', this.paletteInfo);
 
                 // set the loading to true
                 this.loading = true;
 
                 // store the state as a variable
-                var pal = this.$store.state.createdPalette;
+                // var pal = this.$store.state.createdPalette;
                 //this.pal = pal;
 
                 // send to firebase
-                this.$http.post("https://kaleidoscope-app-92131.firebaseio.com/palettes.json", pal).then(() => {
+                this.$http.post("https://kaleidoscope-app-92131.firebaseio.com/palettes.json", this.pal).then(() => {
                     //alert(data);
                     this.loading = false;
                 });

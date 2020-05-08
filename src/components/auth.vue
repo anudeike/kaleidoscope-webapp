@@ -35,6 +35,15 @@
                             ></v-text-field>
                         </v-col>
                     </v-row>
+
+                    <v-row v-if="isSignInError">
+                        <v-col>
+                            <v-alert class="text-left" type="error">
+                                {{ signInErrorMsg }}
+                            </v-alert>
+                        </v-col>
+                    </v-row>
+
                     <v-row>
                         <v-col>
                             <v-btn
@@ -77,6 +86,16 @@
                             ></v-text-field>
                         </v-col>
                     </v-row>
+
+                    <v-row v-if="isError">
+                        <v-col>
+                            <v-alert class="text-left" type="error">
+                                {{ errorMsg }}
+                            </v-alert>
+                        </v-col>
+                    </v-row>
+
+                    <!-- row with all the buttons-->
                     <v-row>
                         <v-col>
                             <v-btn
@@ -125,7 +144,10 @@
                 passwordRules: [
                     v => !!v || 'Password is required'
                 ],
-                submitted: false
+                isError: false, // this is for login
+                errorMsg: "",
+                isSignInError: false,
+                signInErrorMsg: ""
             }
         },
         methods: {
@@ -149,9 +171,12 @@
                     }, (err) => {
                         // error happened
                         alert("error happened trying to insert username: " + err.message)
+
+                        this.errorMsg = "Oops. Something went wrong trying to process your username."
                     })
                 }, (err) => {
                     alert("error: " + err.message)
+                    this.signInErrorMsg = "Sorry, your account code not be created."
 
                 });
             },
@@ -160,6 +185,8 @@
 
                 //set a loading variable to enable loading
                 firebase.auth().signInWithEmailAndPassword(this.email, this.password).then((authUser) => {
+                    // set submitted to true
+                    this.submitted = true;
                     //alert("Nice, " + authUser.user.displayName + " is authenticated");
 
                     // set the current user in the store
@@ -168,7 +195,15 @@
                     //go to home route
                     this.$router.push('home');
                 }, (err) => {
-                    alert("Error: " + err.message)
+                    this.isError = true // this should make the warning pop up
+                    console.log(err.code);
+                    if (err.code.includes("user-not-found")){
+                        this.errorMsg = "Sorry, we can't find your account in our records. Try signing up!"
+                    }else {
+                        this.errorMsg = "Something seems to have gone wrong on our end."
+                    }
+
+
                 })
 
             }
