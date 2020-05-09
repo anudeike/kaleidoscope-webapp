@@ -6,9 +6,14 @@
             </v-flex>
             <v-flex class="text-center">
                 <v-layout column>
-                    <v-flex>
+                    <v-flex v-if="!getUserFromState">
+                        <span><p class="display-1 font-weight-light white--text shadow"> Hello, New User! </p></span>
+                    </v-flex>
+
+                    <v-flex v-else>
                         <span><p class="display-1 font-weight-light white--text shadow"> Hello, {{ getUserFromState }} </p></span>
                     </v-flex>
+
                     <v-flex v-if="$vuetify.breakpoint.xsOnly">
                         <span>
                             <p class="display-2 font-weight-light white--text shadow"> Kaleidoscope </p>
@@ -38,6 +43,19 @@
                     <v-flex>
                         <v-btn x-large color="purple darken-3" dark @click="submit">Search</v-btn>
                     </v-flex>
+
+                    <v-flex>
+                        <!-- use a snackbar to notify when the user has been logged in-->
+                        <v-snackbar v-model="getUserFromState" :timeout="2000">
+                            <span class="text-left">
+                                <v-icon color="white" class="mr-3" medium>
+                                    done_all
+                                </v-icon>
+                                {{ getUserFromState }} is logged in!
+                            </span>
+
+                        </v-snackbar>
+                    </v-flex>
                 </v-layout>
             </v-flex>
             <v-flex class="text-center placeholder">
@@ -49,11 +67,12 @@
 
 <script>
 
-    export default {
+export default {
   data() {
       return {
           myData: "home page",
           searchTerm: "",
+          loggedIn: false
       }
   },
   methods: {
@@ -72,10 +91,11 @@
       getUserFromState() {
           // if there is no user then return newUser
           if (this.$store.state.user === "") {
-              return "New User!"
+              return false
           }
 
           // // else if there is a user
+          // set logged in to true
           return this.$store.state.user;
       }
   }
